@@ -1,0 +1,3139 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>Apuntes de C.</TITLE>
+<META NAME="doccomm" CONTENT="Documento de libre distribución exepto copias modificadas. (ver Acerca de este documento)">
+</HEAD>
+<BODY LINK="#0000ff">
+
+<FONT SIZE=2><P ALIGN="CENTER">Copyright &copy; 1994-1998 Enrique Iglesias Rodriguez </FONT><A HREF="mailto:esoft@arrakis.es">esoft@arrakis.es</A><FONT SIZE=2> y Antonio Lebr&oacute;n Bocanegra.</P>
+<P ALIGN="CENTER">Todos lo derechos reservados.</P>
+<P ALIGN="CENTER">&nbsp;</P>
+</FONT><B><FONT SIZE=6><P>Apuntes de C</P>
+<OL>
+
+</B></FONT><FONT FACE="Arial" SIZE=4><LI>Acerca de este documento.</LI>
+</FONT><B><P>Autores: </B><FONT SIZE=2>Antonio Lebr&oacute;n Bocanegra y </FONT>Enrique Iglesias Rodriguez. </P>
+<B><P>&nbsp;</P>
+<P>Derechos: </B>Documento de libre distribuci&oacute;n, siempre que se cite el origen y autor del mismo. Prohibido cualquier uso comercial de este documento.</P>
+<P>&nbsp;</P>
+<B><P>Aclaraci&oacute;n:</B> Este documento esta basado en la aplicaci&oacute;n de Antonio Lebr&oacute;n Bocanegra, TUTORC. Yo, Enrique I.R. port&eacute; a html gran parte del contenido de esta aplicaci&oacute;n para luego extender, incluir o modificar varias secciones. No lo considero un trabajo acabado, por ello, si encuentra alg&uacute;n error o tema que se deba incluir le agradecer&iacute;a que enviase sus correcciones o sugerencias a <A HREF="mailto:esoft@arrakis.es">esoft@arrakis.es</A>. Quiero dejar claro que no ejerzo de profesor o consultor gratuito as&iacute; que no responder&eacute; a mensajes con dudas.</P>
+<P> </P>
+<B><P>Prop&oacute;sito: </B>Este documento cubre los aspectos b&aacute;sicos en el aprendizaje de la programaci&oacute;n en C a trav&eacute;s del compilador de Borland Turbo C bajo DOS y de la programaci&oacute;n estructurada en general. No pretende ser una referencia hacia las librer&iacute;as de Borland ni adentrarse en aspectos avanzados de programaci&oacute;n. Esta versi&oacute;n contiene apartados vacios aunque todos los aspectos esenciales de la programaci&oacute;n en C est&aacute;n cubiertos.</P>
+<LI><A NAME="_Toc365786847"><A NAME="_Toc365907200"><A NAME="_Toc366027080"><FONT FACE="Arial" SIZE=4>Introducci&oacute;n.</A></A></A></LI>
+</FONT><P>Fue inventado por Dennis Ritchie en 1972 en el proceso de dise&ntilde;o del sistema operativo UNIX. Deriva del lenguaje B de Ken Thompson quien cooper&oacute; tambi&eacute;n en el dise&ntilde;o de la primera versi&oacute;n (UNIX v.5). M&aacute;s tarde surgieron gran cantidad de nuevas implementaciones y se hizo necesario un est&aacute;ndar, el ANSI C. La implementaci&oacute;n que estudiaremos es la de Turbo C de Borland, una extensi&oacute;n mejorada del ANSI C. Algunas caracter&iacute;sticas del C: Es un lenguaje de prop&oacute;sito general porque no est&aacute; enfocado a hacer un tipo determinado de programas, con &eacute;l se puede crear desde sistemas operativos hasta los m&aacute;s avanzados sistemas expertos. Es de <U>medio nivel</U> porque en &eacute;l se puede trabajar a alto nivel (nivel l&oacute;gico, m&aacute;s f&aacute;cil) y a bajo nivel (nivel f&iacute;sico del ordenador, m&aacute;s r&aacute;pido). Su c&oacute;digo es f&aacute;cilmente portable a otros sistemas.</P>
+<OL>
+
+<B><LI><A NAME="_Toc365786848"><A NAME="_Toc365907201"><A NAME="_Toc366027081"><I><FONT FACE="Arial">Escribir, compilar, enlazar y ejecutar.</A></A></A></LI>
+</B></I></FONT><P>Para crear un programa en C se deben seguir estos pasos: Escribirlo en uno o m&aacute;s ficheros de texto de una forma reconocible por el compilador (c&oacute;digo fuente, con extensi&oacute;n .C). Estos ficheros fuente se <U>compilan</U> creando ficheros de c&oacute;digo objeto (.OBJ), c&oacute;digo m&aacute;quina con significado para el microprocesador. Cada uno de estos ficheros compilables se llaman m&oacute;dulos. Pero este c&oacute;digo objeto no esta completo, le falta toda una serie de rutinas que est&aacute;n en las librer&iacute;as (.LIB) y a las que por ahora solo hace referencia. Adem&aacute;s, los programas grandes suelen tener varios m&oacute;dulos separados. Para unirlo todo lo <U>enlazamos</U> con el montador o enlazador (linker) que producir&aacute; un fichero ejecutable (.EXE, .COM) por el sistema operativo (por ejemplo tecleando nosotros su nombre en la l&iacute;nea de comandos). La &uacute;ltima fase en la creaci&oacute;n de una aplicaci&oacute;n ser&iacute;a la <U>depuraci&oacute;n</U> y test&eacute;o donde comprobamos que no hay errores y que las cosas salen como queremos. Si hay alg&uacute;n error volver&iacute;amos a efectuar estos pasos hasta que todo vaya bi&eacute;n. Hay disponibles en el mercado gran cantidad de entornos integrados de desarrollo (IDE, Integrated Development Environment) que son aplicaciones que permiten llevar a cabo todos estos pasos (ej: Turbo C).</P>
+<B><P>&nbsp;</P>
+</B><P>Dadas estas etapas decimos que hay errores en tiempo de compilaci&oacute;n, de enlaze y de ejecuci&oacute;n seg&uacute;n en que parte del desarrollo de la aplicaci&oacute;n ocurran.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786849"><A NAME="_Toc365907202"><A NAME="_Toc366027082"><I><FONT FACE="Arial">Elementos b&aacute;sicos de un programa en C.</A></A></A></LI></OL>
+
+</B></I></FONT><P>/*Pues ah&iacute; va un ejemplo:</P>
+<P>&#9;Los signos ‘/*’ y ‘*/’ definen los margenes de los comentarios, todo lo que hay entre ellos es ignorado.*/</P>
+<P>//En algunas versiones que permiten C++ tambi&eacute;n podemos //utilizar las dos barras para comentar solo una l&iacute;nea</P>
+<P>#include &lt;stdio.h&gt; /*Para usar funciones de la librer&iacute;a.*/</P>
+<P>main () /*Aqu&iacute; comienza el programa.*/</P>
+<P>{</P>
+<P>int horas, minutos;/*Dos variables del tipo entero.*/</P>
+<P>  horas = 3;</P>
+<P>  minutos = 60 * horas;</P>
+<P>  printf ("Hay %d minutos en %d horas.", minutos, horas);</P>
+<P>  /*La salida por pantalla es:</P>
+<P>&#9;Hay 180 minutos en 3 horas.</P>
+<P>*/</P>
+<P>  getchar ();/*Espera a que se pulse enter.*/</P>
+<P>}</P>
+<B><LI><A NAME="_Toc365786850"><A NAME="_Toc365907203"><A NAME="_Toc366027083"></B><FONT FACE="Arial" SIZE=4>Tipos, operadores y expresiones.</A></A></A></LI>
+<OL>
+
+<LI><A NAME="_Toc365786851"><A NAME="_Toc365907204"><A NAME="_Toc366027084"></FONT><B><I><FONT FACE="Arial">Variables y constantes, declaraciones, inicializaci&oacute;n, expresiones.</A></A></A></LI>
+</B></I></FONT><P>Los programas funcionan con datos que contienen la informaci&oacute;n que manipular&aacute;n. Estos datos se pueden dividir en constantes (valores fijos no alterables) y variables (valores que se pueden cambiar). Cuidado porque a veces nos referiremos a variables refiri&eacute;ndonos a los datos en general (incluyendo las constantes).</P>
+<P>Para utilizar un dato este debe ser antes declarado d&aacute;ndole un nombre que utilizaremos despu&eacute;s para referenciarlo. En la declaraci&oacute;n avisamos al compilador de la existencia de una variable y del nombre de la misma. En la declaraci&oacute;n tambi&eacute;n podemos dar un valor de comienzo a la variable, inicializ&aacute;ndola.</P>
+<P>Ejemplo de declaraci&oacute;n:</P>
+<P>&#9;int t;/*t es una variable de tipo entero.*/</P>
+<P>Ejemplo de declaraci&oacute;n e inicializaci&oacute;n:</P>
+<P>&#9;int t=3;/*t comienza valiendo 3.*/</P>
+<P>Las variables se pueden conjugar con operadores mediante expresiones para dar lugar a nuevos valores. Por ejemplo: b=a+3;</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786852"><A NAME="_Toc365907205"><A NAME="_Toc366027085"><I><FONT FACE="Arial">Tipos de datos.</A></A></A></LI>
+</B></I></FONT><P>Existen cinco tipos de datos b&aacute;sicos en C:</P>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=519>
+<TR><TD WIDTH="14%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Tipo</B></TD>
+<TD WIDTH="27%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Descripci&oacute;n</B></TD>
+<TD WIDTH="17%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Longitud en bytes</B></TD>
+<TD WIDTH="42%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Rango</B></TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<P>char</TD>
+<TD WIDTH="27%" VALIGN="TOP">
+<P>car&aacute;cter</TD>
+<TD WIDTH="17%" VALIGN="TOP">
+<P>1</TD>
+<TD WIDTH="42%" VALIGN="TOP">
+<P>0 a 255</TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<P>int</TD>
+<TD WIDTH="27%" VALIGN="TOP">
+<P>entero</TD>
+<TD WIDTH="17%" VALIGN="TOP">
+<P>2</TD>
+<TD WIDTH="42%" VALIGN="TOP">
+<P>-32768 a 32767</TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<P>float</TD>
+<TD WIDTH="27%" VALIGN="TOP">
+<P>punto flotante</TD>
+<TD WIDTH="17%" VALIGN="TOP">
+<P>4</TD>
+<TD WIDTH="42%" VALIGN="TOP">
+<P>aprox. 6 d&iacute;gitos de precisi&oacute;n</TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<P>double</TD>
+<TD WIDTH="27%" VALIGN="TOP">
+<P>punto flotante</TD>
+<TD WIDTH="17%" VALIGN="TOP">
+<P>8</TD>
+<TD WIDTH="42%" VALIGN="TOP">
+<P>aprox. 12 d&iacute;gitos de precisi&oacute;n</TD>
+</TR>
+<TR><TD WIDTH="14%" VALIGN="TOP">
+<P>void</TD>
+<TD WIDTH="27%" VALIGN="TOP">
+<P>sin valor</TD>
+<TD WIDTH="17%" VALIGN="TOP">
+<P>0</TD>
+<TD WIDTH="42%" VALIGN="TOP">
+<P>sin valor</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<P>Los <B>CARACTERES</B> se definen con ap&oacute;strofes. ‘r’, ‘3’, ‘U’ son ejemplos v&aacute;lidos de caracteres. Ejemplos inv&aacute;lidos son:</P>
+<U><P>‘Rrr’</U> por que son varios caracteres.</P>
+<U><P>e</U> por que no est&aacute; delimitado por ap&oacute;strofes y es tomado como una variable.</P>
+<U><P>3</U> porque es tomado como un entero.</P>
+<B><P>&nbsp;</P>
+</B><P>El valor de una constante car&aacute;cter es el valor num&eacute;rico del car&aacute;cter en conjunto ASCII. Por ello es lo mismo poner ch=‘A’ que ch=65 ya que 65 es el valor ASCII de ‘A’.</P>
+<P>Hay cierto n&uacute;mero de caracteres no imprimibles. Para usarlos debemos representarlos mediante una combinaci&oacute;n de secuencias de escape, estas son:</P>
+<P>&nbsp;</P>
+<P ALIGN="RIGHT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=578>
+<TR><TD WIDTH="11%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>C&oacute;digo</B></TD>
+<TD WIDTH="89%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Significado</B></TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\b</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Retroceso, lo mismo que la tecla borrar</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\f</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Salto de p&aacute;gina</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\n</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Nueva l&iacute;nea</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\r</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Retorno de carro, el cursor al principio de la l&iacute;nea actual</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\t</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Tabulaci&oacute;n horizontal</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\&quot;</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Comillas (&quot;)</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\’</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Ap&oacute;strofe (‘)</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\0</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Car&aacute;cter nulo, suele delimitar las cadenas de caracteres</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\\</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>barra invertida (\)</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\v   </TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>tabulaci&oacute;n vertical</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\a</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>alerta (bell, campanilla)</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\ddd</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Constante octal (ddd son tres d&iacute;gitos como m&aacute;ximo) \345</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>\xddd</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Constante hexadecimal (ddd son tres d&iacute;gitos como m&aacute;ximo)\3e8</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>&nbsp;</P>
+<P>Hay otros caracteres no imprimibles para los que se puede utilizar los c&oacute;digos \ddd, \xddd o simplemente usando el n&uacute;mero del c&oacute;digo ASCII.</P>
+<P>&nbsp;</P>
+<P>Ejemplo de asignaciones equivalentes:</P>
+<P>&nbsp;</P>
+<P>char ch1, ch2, ch3, ch4; /*declaraci&oacute;n de cuatro variables tipo car&aacute;cter*/</P>
+<P>  ch1 = '\n';   /* el car&aacute;cter '\n' es el n&uacute;mero 13 en ASCII */</P>
+<P>  ch2 = 13;     /* 13 decimal &lt;=&gt; 12 octal &lt;=&gt; A hexadecimal */</P>
+<P>  ch3 = '\12'; /* tambi&eacute;n ser&iacute;a v&aacute;lido: ch3 = '\012'; */</P>
+<P>  ch4 = '\xA';  /* tambi&eacute;n ser&iacute;a v&aacute;lido: ch4 = '\xa'; */</P>
+<P>&nbsp;</P>
+<P>El tipo <B>ENTERO</B> indica un n&uacute;mero con signo sin parte fraccionaria. Se pueden escribir de tres formas:</P>
+<P>-En decimal, escribiendo el n&uacute;mero sin empezar por 0 (a excepci&oacute;n de que sea el propio 0). Ejemplos: 6, 0, -2.</P>
+<P>-En hexadecimal, empezando el n&uacute;mero por 0x. Ejemplos: 0xE, 0x1d, 0x8.</P>
+<P>-En octal, empezando el n&uacute;mero por 0. Ejemplos: 02, 010.</P>
+<P>&nbsp;</P>
+<P>Los tipos <B>FLOAT </B>y <B>DOUBLE</B> tienen parte real y parte fraccionaria. El tipo double tiene el doble de precisi&oacute;n que el tipo float. Por lo dem&aacute;s son iguales. La sintaxis de las constantes de estos dos tipos es:</P>
+<P>&nbsp;</P>
+<P> [signo] [d&iacute;gitos] [.] [d&iacute;gitos] [exponente [signo] d&iacute;gitos]</P>
+<P>&nbsp;</P>
+<P>donde:</P>
+<P>&#9;signo es + o -;</P>
+<P>&#9;d&iacute;gitos es una secuencia de d&iacute;gitos;</P>
+<P>&#9;. es el punto decimal;</P>
+<P>&#9;exponente es E o e.</P>
+<P>&nbsp;</P>
+<P>Los elementos que est&aacute;n entre [] son opcionales, pero el n&uacute;mero no puede empezar por e o E, ya que el compilador lo interpretar&iacute;a en este caso como un identificador y no como un n&uacute;mero.</P>
+<P>&nbsp;</P>
+<P>Algunos ejemplos de constantes de este tipo:</P>
+<P>(** significa &quot;elevado a&quot;)</P>
+<P>1.0e9 --&gt;&gt; 1*(10**9) --&gt;&gt; 1,000,000,000</P>
+<P>-3E-8 --&gt;&gt; -3*(10**-8) --&gt;&gt; -0.00000003</P>
+<P>-10.1 --&gt;&gt; -10.1</P>
+<P>-3.082e-2 --&gt;&gt; -0.03082</P>
+<P>&nbsp;</P>
+<P>El tipo <B>VOID </B>significa sin valor, sin tipo. Tiene varios usos.</P>
+<P>-Uno es al declarar un argumento de funci&oacute;n de este tipo. Lo que estamos haciendo es indicar que este par&aacute;metro no se utilizar&aacute;. Ej: main(void) //No utilizaremos ning&uacute;n par&aacute;metro.</P>
+<P>-Otro es al declarar una funci&oacute;n como de este tipo. La funci&oacute;n no devolver&aacute; valor alguno.</P>
+<P>Ej: void main(int argc,char *argv[]) /*No se devolver&aacute; nada al sistema operativo.*/</P>
+<P>-Otro (que veremos m&aacute;s adelante) es declarar un puntero void que podr&aacute; apuntar a cualquier tipo de dato.</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Toc365786853"><A NAME="_Toc365907206"><A NAME="_Toc366027086"><B><I><FONT FACE="Arial">Modificadores de tipo (signed, unsigned, long y short).</A></A></A></LI>
+</B></I></FONT><P>Un modificador de tipo se usa para alterar el significado del tipo base para que se ajuste m&aacute;s precisamente a las necesidades de cada momento.</P>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=525>
+<TR><TD WIDTH="22%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Modificador</B></TD>
+<TD WIDTH="22%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Descripci&oacute;n</B></TD>
+<TD WIDTH="57%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Tipos a los se les puede aplicar</B></TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>signed</TD>
+<TD WIDTH="22%" VALIGN="TOP">
+<P>con signo</TD>
+<TD WIDTH="57%" VALIGN="TOP">
+<P>int, char</TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>unsigned</TD>
+<TD WIDTH="22%" VALIGN="TOP">
+<P>sin signo</TD>
+<TD WIDTH="57%" VALIGN="TOP">
+<P>int, char</TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>long</TD>
+<TD WIDTH="22%" VALIGN="TOP">
+<P>largo</TD>
+<TD WIDTH="57%" VALIGN="TOP">
+<P>int, char, double</TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>short</TD>
+<TD WIDTH="22%" VALIGN="TOP">
+<P>corto</TD>
+<TD WIDTH="57%" VALIGN="TOP">
+<P>int, char</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<P>Date cuenta que el tipo void no tiene modificador de tipo (y tampoco de acceso menos en el tercer caso que citamos antes).</P>
+<P>&nbsp;</P>
+<P>Y as&iacute; quedar&iacute;an al conjugarse con los tipos de datos b&aacute;sicos:</P>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=567>
+<TR><TD WIDTH="32%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Tipo</B></TD>
+<TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Longitud en bytes</B></TD>
+<TD WIDTH="53%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>L&iacute;mites del dato</B></TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>char</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>1</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>Caracteres ASCII</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>unsigned char</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>1</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>0 a 255</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>signed char</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>1</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>-128 a 127</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>2</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>-32786 a 32767</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>unsigned int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>2</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>0 a 65535</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>signed int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>2</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>Igual que int</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>short int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>1</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>-128 a 127</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>unsigned short int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>1 </TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>0 a 255</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>signed short int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>1</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>Igual que short int</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>long int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>4</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>-2147483648 a 2147483649</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>signed long int</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>4</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>-2147483648 a 2147483649</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>unsigned long int </TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>4</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>0 a 4294967296</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>float</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>4</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>Aprox. 6 d&iacute;gitos de precisi&oacute;n</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>double</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>8</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>Aprox. 12 d&iacute;gitos de precisi&oacute;n</TD>
+</TR>
+<TR><TD WIDTH="32%" VALIGN="TOP">
+<P>long double</TD>
+<TD WIDTH="15%" VALIGN="TOP">
+<P>16</TD>
+<TD WIDTH="53%" VALIGN="TOP">
+<P>Aprox. 24 d&iacute;gitos de precisi&oacute;n</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<LI><A NAME="_Toc365786854"><A NAME="_Toc365907207"><A NAME="_Toc366027087"><B><I><FONT FACE="Arial">Modificadores de acceso (const y volatile).</A></A></A></LI>
+</B></I></FONT><P>Indican el tipo de acceso al tipo de datos que modifican.</P>
+<P>Los de tipo constante (<B>const</B>) se inicializan al declarar la variable y no se pueden modificar en el programa. Algo as&iacute; dar&iacute;a un error:</P>
+<P>const int i=8;</P>
+<B><P>&nbsp;</P>
+</B><P>&#9;i=7;//Error. No se puede modificar una constante.</P>
+<B><P>&nbsp;</P>
+</B><P>El modificador <B>volatile</B> indica al compilador que esa variable puede ser modificado por algo externo al programa (ej: el sistema operativo o un driver de dispositivo). Esto se hace para que no se optimize la variable. Por ejemplo en:</P>
+<B><P>&nbsp;</P>
+</B><P>int ent;</P>
+<B><P>&#9;</B>i=8;</P>
+<P>&#9;i=9;</P>
+<P>La primera asignaci&oacute;n se desecha ya que es in&uacute;til. Si hubiesemos declarado volatile int ent, esto no suceder&iacute;a.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786855"><A NAME="_Toc365907208"><A NAME="_Toc366027088"><I><FONT FACE="Arial">Operadores aritm&eacute;ticos (+, -, *, /, %, --, ++), relacionales (&gt;, &gt;=, &lt;, &lt;=, ==, !=) y l&oacute;gicos (&amp;&amp;, ||, !).</A></A></A></LI>
+</B></I></FONT><P>Un operador es un signo que realiza una determinada acci&oacute;n sobre unos operandos. El operando es el valor manipulado por el operador, puede ser un dato o el valor devuelto por una funci&oacute;n. Todo esto da lugar a una expresi&oacute;n. Se dice que un operador es binario si opera con dos operandos. Se dice que es monario si solo lo hace con uno.</P>
+<B><P>&nbsp;</P>
+</B><P>Los <U>operadores aritm&eacute;ticos</U> en C son:</P>
+<B><P>&nbsp;</P></B>
+<P ALIGN="LEFT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=444>
+<TR><TD WIDTH="36%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Operador</B></TD>
+<TD WIDTH="19%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Signo</B></TD>
+<TD WIDTH="45%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Tipo</B></TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>Suma</TD>
+<TD WIDTH="19%" VALIGN="TOP">
+<P>+</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P>Binario o unario</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>Resta</TD>
+<TD WIDTH="19%" VALIGN="TOP">
+<P>-</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P>Binario o unario</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>Multiplicaci&oacute;n</TD>
+<TD WIDTH="19%" VALIGN="TOP">
+<P>*</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P>Binario</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>Divisi&oacute;n</TD>
+<TD WIDTH="19%" VALIGN="TOP">
+<P>/</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P>Binario</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>Resto</TD>
+<TD WIDTH="19%" VALIGN="TOP">
+<P>%</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P>Binario</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>Incremento</TD>
+<TD WIDTH="19%" VALIGN="TOP">
+<P>++</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P>Unario</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>Decremento</TD>
+<TD WIDTH="19%" VALIGN="TOP">
+<P>--</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P>Unario</TD>
+</TR>
+</TABLE>
+</P>
+
+<B><P>&nbsp;</P>
+</B><P>Los operadores de suma y resta unarios devuelven los valores positivo y negativo del operando.</P>
+<B><P>&nbsp;</P>
+</B><P>El operador resto hace la misma acci&oacute;n que la divisi&oacute;n pero devuelve el resto de la operaci&oacute;n en vez del resultado. Ej: ch=11%3;//ch=2;</P>
+<B><P>&nbsp;</P>
+</B><P>Los operadores incremento (<B>++</B>) y decremento (<B>--</B>), modifican en 1 el valor del operando. Ej:</P>
+<P>&#9;ch++;//ch=ch+1;</P>
+<P>&#9;ch--;//ch=ch-1;</P>
+<P>Hay dos modalidades para cada operador incremento y decremento. Son el prefijo y sufijo. Los operadores prefijo incrementan o decrementan el valor del dato antes de devolver el valor del dato que modifican. Los operadores sufijo modifican el dato despu&eacute;s de devolver el valor.</P>
+<B><P>&nbsp;</P>
+</B><P>char ch1=8,ch2=9,ch3;</P>
+<P>&#9;ch3=ch1++;</P>
+<P>&#9;//ch3=8 y ch1=9.</P>
+<P>&#9;ch3=++ch2 * 2</P>
+<P>&#9;//ch3=20 (10*2). Ch2=10.</P>
+<B><P>&nbsp;</P>
+</B><P>Los <B>operadores relacionales</B> realizan una comparaci&oacute;n entre los dos operandos a sus lados. Esta comparaci&oacute;n da lugar a un valor verdadero o falso. En C <U>cualquier valor distinto de 0 es verdadero, cualquier valor igual a 0 es falso</U>. Cuando no se puede definir un valor determinado, para indicar verdadero se utiliza el 1. Los operadores relacionales son:</P>
+<P>&gt;&#9;Mayor</P>
+<P>&gt;=&#9;Mayor o igual</P>
+<P>&lt;&#9;Menor</P>
+<P>&lt;=&#9;Menor o igual</P>
+<P>==&#9;Igual</P>
+<P>!=&#9;No igual (distinto)</P>
+<P>Todos son binarios.</P>
+<B><P>&nbsp;</P>
+</B><P>ej:&#9;ch=(3&gt;=8);//Falso, ch igual a 0.</P>
+<B><P>&nbsp;</P>
+</B><P>Los <B>operadores l&oacute;gicos</B> conectan dos expresiones entre s&iacute;. Son:</P>
+<P>&amp;&amp;&#9;&#9;Y&#9;Verdadero si los dos operandos dan verdadero</P>
+<P>||&#9;&#9;O&#9;Verdad si, como m&iacute;nimo, uno de es verdadero</P>
+<P>!&#9;&#9;No&#9;Si el operando es verdadero da falso, y al rev&eacute;s. Este es &uacute;nico monario.</P>
+<B><P>&nbsp;</P>
+</B><P>La tabla de verdad para estos operadores es:</P>
+<P>p&#9;q&#9;p&amp;&amp;q&#9;p||q&#9;!p</P>
+<P>0&#9;0&#9;0&#9;0&#9;1</P>
+<P>0&#9;1&#9;0&#9;1&#9;1</P>
+<P>1&#9;0&#9;0&#9;1&#9;0</P>
+<P>1&#9;1&#9;1&#9;1&#9;0</P>
+<B><P>&nbsp;</P>
+</B><P>En C la evaluaci&oacute;n de una expresi&oacute;n se termina si ya no es necesario evaluar el resto. Ej:</P>
+<P>0 &amp;&amp; val&#9;;</P>
+<P>//val no se eval&uacute;a ya que la expresi&oacute;n siempre ser&aacute; falsa.</P>
+<P>1 || val; </P>
+<P>//val no se eval&uacute;a ya que la expresi&oacute;n siempre ser&aacute; verdadera.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786856"><A NAME="_Toc365907209"><A NAME="_Toc366027089"><I><FONT FACE="Arial">Operadores de bits (&amp;, |, ^, ~, &gt;&gt;, &lt;&lt;).</A></A></A></LI>
+</B></I></FONT><P>Estos operadores modifican o comparan los operandos a nivel de bits. Son:</P>
+<P>&amp;&#9;Y&#9;Igual que &amp;&amp;</P>
+<P>|&#9;O&#9;Igual que ||</P>
+<P>^&#9;O exclusivo (XOR)&#9;Solo cuando solo uno es verdadero</P>
+<P>~&#9;Complemento a uno (NOT)&#9;Igual que !</P>
+<P>&gt;&gt;&#9;Desplazamiento a la derecha</P>
+<P>&lt;&lt;&#9;Desplazamiento a la izquierda</P>
+<P>Todos son binarios menos el ~.</P>
+<B><P>&nbsp;</P>
+</B><P>Las tablas de verdad de los operadores <B>&amp;, | </B>e<B> ~</B> son las mismas que los de &amp;&amp;, || e ! respectivamente. Lo que la comparaci&oacute;n se hace a nivel de bits, para comprender mejor el proceso deberemos hacer la conversi&oacute;n a binario de los valores implicados. As&iacute;:</P>
+<B><P>&nbsp;</P>
+</B><P>9 =&gt; 1001.&#9;12 =&gt; 1100.</P>
+<P>9&amp;12 =&gt; 1000</P>
+<P>9|12 =&gt; 1101</P>
+<P>~9&#9;=&gt; 0110</P>
+<B><P>&nbsp;</P>
+</B><P>La tabla de verdad para el operador XOR (<B>^</B>).</P>
+<P>p&#9;q&#9;p^q</P>
+<P>0&#9;0&#9;0</P>
+<P>0&#9;1&#9;1</P>
+<P>1&#9;0&#9;1</P>
+<P>1&#9;1&#9;0</P>
+<B><P>&nbsp;</P>
+</B><P>Ej:&#9;9^12 =&gt; 0101</P>
+<B><P>&nbsp;</P>
+</B><P>Los operadores de desplazamiento mueven los bits del operando de la izquierda el n&uacute;mero de bits que indica el de la derecha. En este caso es importante tener en cuenta el tama&ntilde;o en bits del operando de la izquierda ya que los bits que se salgan se pierden y los que entran se rellenan con ceros. Ej: </P>
+<P>//En binario 101100, un car&aacute;cter tiene 8 bits (1 byte).</P>
+<P>unsigned char ch=44,ch2;</P>
+<B><P>&nbsp;</P>
+</B><P>&#9;ch2=ch&lt;&lt;3;//ch2=96 (01100000) se pierde el 1 de la izq.</P>
+<P>&#9;ch2=ch&gt;&gt;3;//ch2=5 (101) se pierden 3 bits a la derecha</P>
+<B><P>&nbsp;</P>
+</B><P>Date cuenta que, exceptuando cuando se pierden bits, desplazar una variable un bit a la izquierda es igual a multiplicarlo por 2. An&aacute;logamente, desplazar una variable un bit a la derecha es igual que dividirlo por 2. Esto se ejecuta m&aacute;s r&aacute;pido que la multiplicaci&oacute;n o divisi&oacute;n normal.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786857"><A NAME="_Toc365907210"><A NAME="_Toc366027090"><I><FONT FACE="Arial">Operadores especiales (?:, &amp;, *, sizeof, coma, ., -&gt;, () []).</A></A></A></LI>
+</B></I></FONT><P>El operador condicional (<B>?:</B>) tiene la sintaxis:</P>
+<P>&#9;expresion_1 ? expresion_2 : expresion_3</P>
+<P>La forma de actuaci&oacute;n es la siguiente. Se eval&uacute;a expresion_1, si es verdadera eval&uacute;a y devuelve expresion_2, si no eval&uacute;a y devuelve expresion_3. Ej:</P>
+<P>ch=(3&gt;9)?9:3;//ch=3.</P>
+<P>b=8;</P>
+<P>ch=(9&gt;=b)?++b*2:b*3;//ch=18;b=9;</P>
+<B><P>&nbsp;</P>
+</B><P>Los operadores de direcci&oacute;n (<B>&amp;</B>) y contenido (<B>*</B>) operan con punteros. Un puntero es una variable que contiene una direcci&oacute;n de memoria. Se distinguen del Y de bit y de la multiplicaci&oacute;n porque estos son binarios mientras que los de direcci&oacute;n y contenido son unarios.</P>
+<B><P>&nbsp;</P>
+</B><P>El operador <B>sizeof</B> es monario y devuelve el tama&ntilde;o en bytes del operando.Ej:</P>
+<P>double db=3;</P>
+<P>char i;</P>
+<P>int e1=3,e2;</P>
+<B><P>&nbsp;</P>
+</B><P>&#9;e2=sizeof(db);//e2=8;</P>
+<P>&#9;e2=sizeof(double);//e2=8;</P>
+<P>&#9;e2=sizeof(i);//e2=1;</P>
+<P>&#9;e2=sizeof(e1);//e2=2;</P>
+<B><P>&nbsp;</P>
+</B><P>El operador coma (<B>,</B>) tiene dos usos.</P>
+<P>-Para representar una lista de elementos:</P>
+<P>void main(int argc,char argv[]){</P>
+<P>&#9;int la,lb,lc;</P>
+<P>&#9;printf(&quot;\n%i+%i+%i=%i&quot;,la,lb,lc,la+lb,lc);</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>-Para encadenar varias expresiones. Se eval&uacute;an de izquierda a derecha y el valor final es de la expresi&oacute;n m&aacute;s a la derecha.</P>
+<P>char ch, ba=2;</P>
+<P>ch=ba++,ba*2,ba+2;//ch=5. La segunda expresi&oacute;n es in&uacute;til.</P>
+<P>&nbsp;</P>
+<P>Los operadores punto (<B>.</B>) y flecha (<B>-&gt;</B>) se utilizan en los tipos compuestos de datos.</P>
+<P>&nbsp;</P>
+<P>Los par&eacute;ntesis aumentan la precedencia de la expresi&oacute;n que encierran. Esto es, fuerzan la evaluaci&oacute;n de la expresi&oacute;n antes que del resto de la sentencia. Ej:</P>
+<P>&#9;int i=2+5*3;//i=17</P>
+<P>&#9;int e=(2+5)*3;//i=21</P>
+<P>&nbsp;</P>
+<P>Los corchetes se usan para indexar arrays.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786858"><A NAME="_Toc365907211"><A NAME="_Toc366027091"><I><FONT FACE="Arial">Operadores de asignaci&oacute;n (=, *=, /=, %=, +=, -=, &lt;&lt;=, &gt;&gt;=, &amp;=, ^=, |=).</A></A></A></LI>
+</B></I></FONT><P>Estos operadores tienen la sintaxis</P>
+<P>&#9;variable operador expresi&oacute;n;</P>
+<P>El operador de asignaci&oacute;n simple (<B>=</B>) da el valor de expresi&oacute;n a variable. De la derecha a la izquierda.</P>
+<P>El resto de los operadores son contracciones del siguiente tipo:</P>
+<P>&#9;variable operador= expresi&oacute;n;</P>
+<P>&#9;&#9;se traduce a</P>
+<P>&#9;variable = variable operador expresi&oacute;n;</P>
+<P>Ej:</P>
+<P>&#9;a*=b;&#9;&#9;//a=a*b;</P>
+<P>&#9;a+=b;&#9;&#9;//a=a+b;</P>
+<P>&#9;a&amp;=b;&#9;&#9;//a=a&amp;b;</P>
+<P>&#9;a&lt;&lt;=b;&#9;//a=a&lt;&lt;b;</P>
+<P>&#9;a|=b;&#9;&#9;//a=a|b;</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786859"><A NAME="_Toc365907212"><A NAME="_Toc366027092"><I><FONT FACE="Arial">Conversi&oacute;n de tipos.</A></A></A></LI>
+</B></I></FONT><P>Se refiere a las acciones llevadas a cabo al mezclar diferentes tipos de variables. Por ejemplo:</P>
+<B><P>&nbsp;</P>
+</B><P>int i=3.14;&#9;//i=3</P>
+<B><P>&nbsp;</P>
+</B><P>i es un entero. 3.14 es un n&uacute;mero en punto flotante. Aqu&iacute; el compilador autom&aacute;ticamente convertir&aacute; el valor a la derecha del igual al tipo de la izquierda. i ser&iacute;a igual a 3.</P>
+<B><P>&nbsp;</P>
+</B><P>int i=7+8.1;&#9;//i=15</P>
+<B><P>&nbsp;</P>
+</B><P>Igual que el ejemplo anterior pero 7 es un entero. Como 8.1 es est&aacute; en punto flotante tambi&eacute;n se toma 7 como un n&uacute;mero en punto flotante. Generalizando, el tipo resultante de aplicar operadores con operandos de diferente tipo es el del operando de mayor tama&ntilde;o.</P>
+<P>En ocasiones nos puede convenir forzar una expresi&oacute;n para que sea de un tipo determinado. Para ello utilizaremos el <B>operador de conversi&oacute;n de tipo ()</B>. Su sintaxis es (tipo), el tipo de dato hacia que queramos convertir cerrado entre par&eacute;ntesis.</P>
+<P>Ej:</P>
+<P> Expresi&oacute;n&#9;Tipo&#9;&#9;Valor</P>
+<P>&#9;5/2&#9;&#9;int&#9;&#9;2</P>
+<P>&#9;5.0/2&#9;&#9;float&#9;&#9;2.5</P>
+<P> (float)5/2&#9;float&#9;&#9;2.5</P>
+<P>(float)(5/2)&#9;float&#9;&#9;2.0&#9;Se eval&uacute;a primero 5/2 (entero)</P>
+<B><P>&nbsp;</P>
+</B><P>int i=8;</P>
+<P>float f=7,b;</P>
+<P>&#9;</P>
+<P>&#9;b=f*i;</P>
+<B><P>&nbsp;</P>
+</B><P>Una forma de se&ntilde;alar una constante num&eacute;rica como un long es terminarla con una l o L. Ej: Las siguientes constantes son equivalentes.</P>
+<P>&#9;8l;&#9;8L;&#9;(long)8;</P>
+<P>Lo mismo se puede hacer para se&ntilde;alar un unsigned terminando la constante con una u o U.</P>
+<P>&#9;9u;&#9;9U;&#9;(unsigned)9;</P>
+<P>Los dos se pueden conjugar:</P>
+<P>&#9;10LU;&#9;&#9;10UL;</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786860"><A NAME="_Toc365907213"><A NAME="_Toc366027093"><I><FONT FACE="Arial">Precedencia de operadores.</A></A></A></LI>
+</B></I></FONT><P>Al evaluar una expresi&oacute;n se sigue un orden de izquierda a derecha evalu&aacute;ndose antes los operadores de mayor preferencia. La preferencia de operadores en C es:</P>
+<B><P>&nbsp;</P></B>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=482>
+<TR><TD WIDTH="36%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Categor&iacute;a</B></TD>
+<TD WIDTH="64%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Operador</B></TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>1.M&aacute;s alta</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>() [] -&gt; .</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>2. Unarios</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>! ~ + - ++ -- &amp; * sizeof</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>3. Multiplicadores</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>* / %</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>4. Aditivos</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>+ - binarios</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>5. Desplazamiento</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>&lt;&lt; &gt;&gt;</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>6. Relacionales</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>&lt; &lt;= &gt; &gt;=</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>7. Igualdad</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>== != </TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>8. AND de bits</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>&amp;</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>9. XOR de bits</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>^</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>10. OR de bits</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>|</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>11. AND l&oacute;gico</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>&amp;&amp;</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>12. OR l&oacute;gico</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>||</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>13. Condicional</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>?:</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>14. Asignami&eacute;nto</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>= *= /= %= += -= &amp;= ^= |= &lt;&lt;= &gt;&gt;=</TD>
+</TR>
+<TR><TD WIDTH="36%" VALIGN="TOP">
+<P>15. Coma</TD>
+<TD WIDTH="64%" VALIGN="TOP">
+<P>,</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786861"><A NAME="_Toc365907214"><A NAME="_Toc366027094"><I><FONT FACE="Arial">Cadenas de caracteres, introducci&oacute;n.</A></A></A></LI></OL>
+
+</B></I></FONT><P>Las cadenas de caracteres (string) es un tipo derivado. Esto significa que se forman a partir de los tipos b&aacute;sicos. Se forman delimitando los caracteres entre comillas dobles (&quot;). Ejemplos:</P>
+<P>&quot;Esto es una cadena&quot;</P>
+<P>&quot;a&quot; //Tiene un solo car&aacute;cter pero sigue siendo una cadena.</P>
+<P>&quot;\nEsto es otra cadena\a con alarma&quot;</P>
+<B><P>&nbsp;</P>
+</B><P>Una cadena es sin&oacute;nimo de un array undimensional, un vector. Una cadena de caracteres es un vector de caracteres delimitado por un car&aacute;cter nulo (null), el car&aacute;cter con c&oacute;digo ASCII 0. El car&aacute;cter nulo se utiliza en C para se&ntilde;alar el final de la cadena. Por ello hay que tener en cuenta que al definir una cadena el tama&ntilde;o de la variable es 1 car&aacute;cter mayor que la cadena escrita. Por ejemplo:</P>
+<P>&quot;abc&quot; se almacena en memoria como </P>
+<P ALIGN="LEFT"><TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=141>
+<TR><TD WIDTH="27%" VALIGN="TOP">
+<P>‘a’</TD>
+<TD WIDTH="27%" VALIGN="TOP">
+<P>‘b’</TD>
+<TD WIDTH="27%" VALIGN="TOP">
+<P>‘c’</TD>
+<TD WIDTH="20%" VALIGN="TOP">
+<P>0</TD>
+</TR>
+</TABLE>
+</P>
+
+<B><P>&#9;</B>Y tiene 4 caracteres.</P>
+<P>&nbsp;</P>
+<P>Poner una cadena vac&iacute;a (&quot;&quot;) es lo mismo que poner a 0 el primer car&aacute;cter de la misma.</P>
+<P>char str[40]=&quot;&quot;; </P>
+<P>&nbsp;</P>
+<P>es lo mismo que  </P>
+<P>&nbsp;</P>
+<P>char str[40];</P>
+<P>&#9;str[0]=0;</P>
+<P>&nbsp;</P>
+<P>Para indicar un elemento determinado de una cadena. como en cualquier array, se utiliza el operador &iacute;ndice []. El primer car&aacute;cter tiene la posici&oacute;n 0, el segundo la 1…</P>
+<P>&nbsp;</P>
+<P>char str[]=&quot;En un lugar de la Mancha&quot;;</P>
+<P>char ch;</P>
+<P>&nbsp;</P>
+<P>&#9;ch=str[4];//ch igual a ‘n’</P>
+<P>&nbsp;</P>
+<P>Y al rev&eacute;s:</P>
+<P>&#9;</P>
+<P>&#9;str[4]=‘E’;//str=&quot;En uE lugar de la Mancha&quot;;</P>
+<P>&nbsp;</P>
+<P>Pero ¡Cuidado! Al asignar valores a una cadena tenemos que hacer algo para asegurarnos de que NUNCA modificaremos zonas de memoria m&aacute;s all&aacute; del tama&ntilde;o de la cadena ya que esto puede dar lugar a resultados inesperados (Ordenador colgado, pitidos…).</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786862"><A NAME="_Toc365907215"><A NAME="_Toc366027095"></B><FONT FACE="Arial" SIZE=4>Sentencias de control de programa.</A></A></A></LI>
+</FONT><P>Una sentencia es un mandato que realiza un acci&oacute;n cualquiera. En C hay sentencias simples, todas separadas por el punto y coma:</P>
+<P>&nbsp;</P>
+<P>&#9;r=pi*(r*r);/*Sentecia de asignaci&oacute;n.*/</P>
+<P>&#9;puts(&quot;…de cuyo nombre…&quot;);/*Sentencia de llamada de funci&oacute;n*/</P>
+<P>&#9;;/*Sentencia in&uacute;til. No da error pero no hace nada.*/</P>
+<P>&nbsp;</P>
+<P>O tambi&eacute;n se pueden agrupar con llaves formando sentencias compuestas, dentro de las cuales tambi&eacute;n pueden haber otras sentencias compuestas, que a su vez…</P>
+<P>&#9;</P>
+<P>&#9;{/*Inicio de una sentencia compuesta.*/</P>
+<P>&#9;&#9;r=pi*(r*r);/*Sentecia de asignaci&oacute;n.*/</P>
+<P>&#9;&#9;/*Sentencia de llamada de funci&oacute;n*/</P>
+<P>&#9;&#9;puts(&quot;…de cuyo nombre…&quot;);</P>
+<P>&#9;}/*Fin de una sentencia compuesta.*/</P>
+<P>&#9;{}/*Otra sentencia compuesta, esta es in&uacute;til.*/</P>
+<P>&nbsp;</P>
+<P>F&iacute;jate que he utilizado una tabulaci&oacute;n para desplazar las sentencias despu&eacute;s de la llave. Esto es MUY RECOMENDABLE. Para escribir un c&oacute;digo fuente mucho m&aacute;s legible iremos colocando las sentencias en ‘niveles’ de forma que podamos diferenciar con facilidad cada grupo de sentencias.</P>
+<P>&nbsp;</P>
+<P>Una sentencia de control es aquella que var&iacute;a el normal curso del programa (linea a linea) saltando a una posici&oacute;n diferente del c&oacute;digo.</P>
+<B><P>&nbsp;</P>
+<OL>
+
+<LI><A NAME="_Toc365786863"><A NAME="_Toc365907216"><A NAME="_Toc366027096"><I><FONT FACE="Arial">Condicionales (if y switch).</A></A></A></LI>
+</B></I></FONT><P>Este tipo de sentencias efect&uacute;an el salto seg&uacute;n se cumpla o no una condici&oacute;n. En C cualquier expresi&oacute;n es verdadera si es diferente de 0 y es falsa si es igual a 0 (como vimos en los operadores relacionales). Cuando no se puede definir un valor determinado, para indicar verdadero se utiliza el 1.</P>
+<P>&nbsp;</P>
+<P>La sentencia <B>if</B> tiene la siguiente sintaxis:</P>
+<P>&nbsp;</P>
+<P>&#9;if(expresi&oacute;n_1)&#9;sentencia_1</P>
+<P>&#9;else if(expresion_2)&#9;sentencia_2</P>
+<P>&#9;else&#9;sentencia_n</P>
+<P>&nbsp;</P>
+<P>La &uacute;nica linea obligatoria es la primera (la del if simple). Las dos siguientes son optativas. Puede haber un n&uacute;mero ilimitado de else if. Si hay alg&uacute;n else simple, este bloque debe ser el &uacute;ltimo de todo el bloque if. Act&uacute;a as&iacute;:  se eval&uacute;a expresi&oacute;n_1, si es verdad ejecuta sentencia_1 y sale. Si es falsa pasa al siguiente bloque (sea un else if o un else). En el caso que fuera un else if, eval&uacute;a expresion_2. Si es verdadera ejecuta sentencia_2, si es falsa pasa al siguiente bloque. Y as&iacute; hasta terminar el bloque. Si el &uacute;ltimo bloque es un else, se ejecutar&aacute; su sentencia solo si ninguna de las expresiones anteriores eran verdaderas. Date cuenta que siempre se ejecutar&aacute; solo una de las sentencias. Ej:</P>
+<P>&#9;//Un solo if.</P>
+<P>&#9;if(a&gt;b)puts(&quot;\n a es mayor que b&quot;);</P>
+<P>&nbsp;</P>
+<P>&#9;//Un bloque if-else.</P>
+<P>&#9;if(a&gt;b)puts(&quot;\n a es mayor que b&quot;);</P>
+<P>&#9;else puts(&quot;\n a es menor o igual que b&quot;);</P>
+<P>&nbsp;</P>
+<P>&#9;//Un bloque if-else-if.</P>
+<P>&#9;if(a&gt;b)puts(&quot;\n a es mayor que b&quot;);<BR>
+&#9;else if(a&lt;b)puts(&quot;\n a es menor que b&quot;);</P>
+<P>&#9;else puts(&quot;\n a es igual que b&quot;);</P>
+<P>&nbsp;</P>
+<P>Cualquier n&uacute;mero de sentencias se puede agrupar con las llaves forzando as&iacute; que se ejecute todo el grupo en vez de una sola sentencia simple. Recuerda siempre separa cada sentencia simple con el punto y coma. Ej:</P>
+<P>&#9;</P>
+<P>&#9;if(f&gt;120){</P>
+<P>&#9;&#9;f=0;</P>
+<P>&#9;&#9;cputs(&quot;\nContador inicializado.\nPulse S para\</P>
+<P>salir. Otra tecla para continuar.&quot;);</P>
+<P>&#9;&#9;if(toupper(getch())==‘S’)&#9;exit(0);</P>
+<P>&#9;}</P>
+<P>&#9;else{</P>
+<P>&#9;&#9;f++;</P>
+<P>&#9;&#9;cprintf(&quot;\nf=%i&quot;,f);</P>
+<P>&#9;}</P>
+<P>&nbsp;</P>
+<P>Recuerda que el operador condicional (?:) se puede utilizar para reemplazar sentencias if simples.</P>
+<P>&nbsp;</P>
+<P>A veces, un sustituto muy &uacute;til del bloque if-else-if es la sentencia <B>switch</B> que tiene la siguiente forma:</P>
+<B><P>&nbsp;</P>
+</B><P>switch(expresi&oacute;n){</P>
+<P>case(expresi&oacute;n_constante_1):</P>
+<P>&#9;sentencias_1</P>
+<P>&#9;sent_control_incondicional</P>
+<P>case(expresi&oacute;n_constante_2):</P>
+<P>&#9;sentencias_2</P>
+<P>&#9;sent_control_incondicional</P>
+<P>...</P>
+<P>default:</P>
+<P>&#9;sentencias_n</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>Puede haber cualquier n&uacute;mero de bloques case terminados todos por una sentencia de control incondicional (break, continue, goto o return). El bloque default tambi&eacute;n es opcional. La expresi&oacute;n del cada case debe de ser constante (no pueden haber variables). Si es igual a la expresi&oacute;n del switch se empieza a ejecutar todas las sentencias hasta la pr&oacute;xima sentencia de control incondicional. Esto hay que tenerlo muy en cuenta porque si no ponemos este incondicional al final del bloque case, se seguiran ejecutando las sentencias del siguiente bloque. Si las dos expresiones no son id&eacute;nticas pasa al siguiente case. Si, finalmente, llega a default se ejecutar&aacute;n las sentencias de su bloque. Ej:</P>
+<P>&nbsp;</P>
+<P>puts(&quot;\nEliga una opci&oacute;n&quot;);</P>
+<P>switch(toupper(getch())){</P>
+<P>case(‘S’):</P>
+<P>&#9;cputs(&quot;\nEligi&oacute; saltar&quot;);</P>
+<P>&#9;break;</P>
+<P>case(‘E’):</P>
+<P>&#9;cputs(&quot;\nEligi&oacute; ejecutar&quot;);</P>
+<P>&#9;ejecutar();</P>
+<P>&#9;break;</P>
+<P>case(27):</P>
+<P>case(‘Q’):</P>
+<P>&#9;cputs(&quot;\nPuls&oacute; Q o ESC. Programa abortado&quot;);</P>
+<P>&#9;exit(0);//No es un incondicional pero termina es lo mismo</P>
+<P>&#9;&#9;// porque termina directamente el programa.</P>
+<P>case(‘N’)://No hace nada.</P>
+<P>&#9;break;</P>
+<P>default:</P>
+<P>&#9;cputs(&quot;\nNo existe esa opci&oacute;n&quot;);</P>
+<P>}</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786864"><A NAME="_Toc365907217"><A NAME="_Toc366027097"><I><FONT FACE="Arial">Iterativas (while, for y do).</A></A></A></LI>
+</B></I></FONT><P>La sentencia <B>while</B> tiene la forma:</P>
+<P>&nbsp;</P>
+<P>&#9;while(expresi&oacute;n)&#9;sentencia</P>
+<P>&nbsp;</P>
+<P>Se eval&uacute;a expresi&oacute;n. Si es verdadera se ejecuta sentencia y vuelve al principio (a la evaluaci&oacute;n del while). Si es falsa termina el while.</P>
+<P>&nbsp;</P>
+<P>La sentencia <B>for</B> tiene la forma:</P>
+<P>&nbsp;</P>
+<P>&#9;for(expresi&oacute;n_1;expresi&oacute;n_2;expresi&oacute;n_3)&#9;sentencia</P>
+<P>&nbsp;</P>
+<P>Las tres expresiones son opcionales aunque siempre deben ponerse los punto y coma y si no aparece expresi&oacute;n_2 se toma como 1 (verdadero). El patr&oacute;n de actuaci&oacute;n es el siguiente: Se ejecuta expresi&oacute;n_1 (normalmente inicializando variables para el control del bucle), esta es la &uacute;nica vez que se ejecutar&aacute; la expresi&oacute;n durante el bucle for. Se eval&uacute;a expresi&oacute;n_2, si es verdadera se ejecuta sentencia y despu&eacute;s expresi&oacute;n_3 volviendo despu&eacute;s al principio (a la evaluaci&oacute;n de expresi&oacute;n_2). Si es falsa terima el for. Ej:</P>
+<P>&nbsp;</P>
+<P>long f;</P>
+<P>&nbsp;</P>
+<P>&#9;for(f=2;f&lt;10;f++)</P>
+<P>&#9;&#9;f*=2;</P>
+<P>&#9;printf(&quot;\n f elevado a 10 es: %i</P>
+<P>&nbsp;</P>
+<P>Observa que esta sentencia es equivalente a poner:</P>
+<P>&nbsp;</P>
+<P>&#9;expresi&oacute;n_1</P>
+<P>&#9;while(expresi&oacute;n_2){</P>
+<P>&#9;&#9;sentencia</P>
+<P>&#9;&#9;expresi&oacute;n_3</P>
+<P>&#9;}</P>
+<P>&nbsp;</P>
+<P>Por &uacute;ltimo, la sentencia <B>do</B> presenta la sintaxis:</P>
+<P>&#9;</P>
+<P>&#9;do</P>
+<P>&#9;&#9;sentencia</P>
+<P>&#9;while(expresi&oacute;n);</P>
+<P>&nbsp;</P>
+<P>Primero se ejecuta sentencia. Luego se eval&uacute;a y si es verdadera vuelve a la linea del do. Si es falsa sale fuera ejecutando la siguiente linea despu&eacute;s del while.</P>
+<P>Ej:</P>
+<P>&#9;int f=8;</P>
+<P>&#9;do{</P>
+<P>&#9;&#9;printf(&quot;\n f=:%i&quot;, f--);</P>
+<P>&#9;}while(f);</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786865"><A NAME="_Toc365907218"><A NAME="_Toc366027098"><I><FONT FACE="Arial">Incondicionales (break, continue, goto y return).</A></A></A></LI></OL>
+
+</B></I></FONT><P>Estas sentencias provocan un salto inmediato, sin evaluar expresi&oacute;n alguna.</P>
+<P>&nbsp;</P>
+<P>La sentencia <B>break</B> hace salir inmediatamente del <U>switch, while, for o do</U> que est&eacute; activo, esto es, el &uacute;ltimo en aparecer y del cual todav&iacute;a no se ha salido. Por ello debe encontrarse  en una sentencia dentro de un bloque switch, while, for o do, de lo contrario dar&iacute;a un error en tiempo de compilaci&oacute;n.</P>
+<P>Ej:</P>
+<P>&#9;int f,g;</P>
+<P>&nbsp;</P>
+<P>&#9;for(f=0;f&lt;8;f++){</P>
+<P>&#9;&#9;g=0;</P>
+<P>&#9;&#9;while(g&lt;10){//Error, bucle infinito.</P>
+<P>&#9;&#9;&#9;printf(&quot;\n f*g=%i&quot;, f*g);</P>
+<P>&#9;&#9;&#9;++g;</P>
+<P>&#9;&#9;&#9;if(g&gt;8)break;</P>
+<P>&#9;&#9;}</P>
+<P>&#9;}</P>
+<P>&nbsp;</P>
+<P>El funcionamiento de la sentencia <B>continue</B> es el mismo que la de break pero en vez de terminar el bloque, salta directamente al principio del mismo saltandose el resto de lineas que quedaban por ejecutar dentro del bloque. </P>
+<P>Ej:&#9;</P>
+<P>    int f;//Busca los divisores de 11862 menores de 100.</P>
+<P>&nbsp;</P>
+<P>&#9;for(f=1;f&lt;100;f++){</P>
+<P>     &#9;&#9;if(11862%f)continue;</P>
+<P>        &#9;printf("\n %i es divisor de 11862",f);</P>
+<P>&#9;}</P>
+<P>&nbsp;</P>
+<P>La sentencia <B>goto</B> tiene la sintaxis:</P>
+<P>&#9;</P>
+<P>&#9;goto etiqueta</P>
+<P>&nbsp;</P>
+<P>Donde etiqueta es un identificador v&aacute;lido. Esta etiqueta debe ser local. O sea, debe encontrarse en la misma funci&oacute;n. Se se&ntilde;ala terminandolo con dos puntos.</P>
+<P>Ej:</P>
+<P>&nbsp;</P>
+<P>&#9;puts(&quot;\nPulse S para salir , otra seguir&quot;);</P>
+<P>&#9;if(toupper(getch())==‘M’)goto fin;</P>
+<P>&#9;puts(&quot;…es terror&iacute;fico el concepto el eterno retorno…&quot;);</P>
+<P>fin:</P>
+<P>&#9;...</P>
+<P>&nbsp;</P>
+<P>Evita el uso de goto a menos que sea TOTALMENTE necesario y limita los break (menos los de switch) y continue porque dificultan la lectura del c&oacute;digo fuente facilitando la propagaci&oacute;n de errores dif&iacute;ciles de corregir. Siempre que utilices alguna de estas sentencia cerci&oacute;rate que lo haces de forma correcta sin provocar bucles infinitos o resultados extra&ntilde;os.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786866"><A NAME="_Toc365907219"><A NAME="_Toc366027099"></B><FONT FACE="Arial" SIZE=4>Algunas funciones del lenguaje C.</A></A></A></LI>
+</FONT><P>Una funci&oacute;n es una porci&oacute;n de c&oacute;digo aislado que efectua una acci&oacute;n determinada seg&uacute;n una serie de par&aacute;metros (puede no tenerlos) y que devuelve un valor dependiente de estas acciones (puede tambi&eacute;n no devolver valor alguno). Estos par&aacute;metros son valores que damos a la funci&oacute;n para que trabaje con ellos. Cuando ejecutamos una funci&oacute;n decimos que la llamamos. La sintaxis de una <U>llamada</U> de funci&oacute;n en C es:</P>
+<P>&nbsp;</P>
+<P>&#9;nombre_de_funci&oacute;n(lista_de_par&aacute;metros)</P>
+<P>&nbsp;</P>
+<P>La lista de par&aacute;metros es consta de cero o m&aacute;s expresiones separadas por comas.</P>
+<P>Ej:</P>
+<P>&nbsp;</P>
+<P>&#9;xv();//Funci&oacute;n xv que no recibe par&aacute;metros.</P>
+<P>&#9;xi(8);//Funci&oacute;n xi que recibe un par&aacute;metro.</P>
+<P>&#9;Xi2(8.9,a,e*g);//Funci&oacute;n Xi2 que recibe tres par&aacute;metros.</P>
+<P>&nbsp;</P>
+<P>Al igual que las variables, para utilizar una funci&oacute;n devemos <U>declararla</U> (describirla) antes. La sintaxis es:</P>
+<P>&nbsp;</P>
+<P>&#9;tipo_de_retorno nombre_de_funci&oacute;n(tipos_de_par&aacute;metros)</P>
+<P>&nbsp;</P>
+<P>Donde tipo_de_retorno es el tipo de dato que devuelve la funci&oacute;n y tipos_de_par&aacute;metros es una lista de tipos de datos que recibe la funci&oacute;n (separados por comas).</P>
+<P>Ej:</P>
+<P>&nbsp;</P>
+<P>&#9;int func(void);//Devuelve un entero. No recibe par&aacute;metros.</P>
+<P>&#9;Func(int);//Devuelve un entero. Recibe un entero.</P>
+<P>&#9;int Func(int);//Devuelve un entero. Recibe un entero.</P>
+<P>&#9;float Punc(long,unsigned,char);/*Devuelve un Nº punto flotante. Recibe un entero largo, un entero sin signo y un car&aacute;cter.*/</P>
+<P>&nbsp;</P>
+<P>Para facilitar el almacenaje y el r&aacute;pido uso de funciones y variables se utilizan librer&iacute;as (.LIB) donde se almacenan en un formato ya compilado. Para no tener que incluir todas las funciones de una librer&iacute;a en nuestro programa, las funciones se separan en m&oacute;dulos. Para utilizar una funci&oacute;n tan solo tenemos que declararla antes. Para este prop&oacute;sito, con las librer&iacute;as suelen venir <U>archivos de cabecera</U> (.H, header) en donde se declara un determinado conjunto de funciones relacionadas. Estos ficheros de cabecera tambi&eacute;n suelen tener macros o declaraciones de variables que podemos necesitar para utilizar estas funciones. </P>
+<B><P>&nbsp;</P>
+<OL>
+
+<LI><A NAME="_Toc365786867"><A NAME="_Toc365907220"><A NAME="_Toc366027100"><I><FONT FACE="Arial">Funciones de salida del programa: exit, _exit, abort y assert().</A></A></A></LI>
+</B></I></FONT><P>Declaradas en process.h y stdblib.h:</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void exit(int estado);</P>
+</I><P>&nbsp;</P>
+<P>Termina el programa en curso. Antes de hacerlo cierra todos los archivos abiertos y los buffers de archivo y ejecuta cualquier funci&oacute;n que hayamos registrado para ejecuci&oacute;n al finalizar el programa.</P>
+<P>&nbsp;</P>
+<I><P>estado</I> puede ser una de las siguientes constantes:</P>
+<P>EXIT_SUCCESS&#9;Terminaci&oacute;n normal.</P>
+<P>EXIT_FAILURE&#9;Terminaci&oacute;n anormal. Avisar al S.O. de error.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void _exit(int estado);</P>
+<P>&nbsp;</P>
+</I><P>Igual que exit pero no realiza ninguna acci&oacute;n previa a la salida. Deja los archivos abiertos…</P>
+<U><P>&nbsp;</P>
+</U><I><P><FONT FACE="MorseCode">&#168;</FONT>
+void abort(void);</P>
+</I><P>&nbsp;</P>
+<P>Escribe el mensaje &quot;Abnormal program termination&quot; (terminaci&oacute;n anormal del programa) en el dispositivo stderr, el definido para la salida de errores, normalmente la consola o monitor, y llama a _exit pas&aacute;ndole como par&aacute;metro 3 ( <I>_exit</I>(3) ). El valor 3 es pasado al S.O.</P>
+<P>&nbsp;</P>
+<P>En Assert.h:</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void assert(int test);</P>
+<P>&nbsp;</P>
+</I><P>Eval&uacute;a la expresi&oacute;n <I>test</I>. Si es verdad no hace nada, si es falsa pone un mensaje en stderr y llama a <I>abort</I>. El mensaje tiene la forma:</P>
+<P>&nbsp;</P>
+<P>Assertion failed: <I>test</I>, name <I>nombre_archivo</I>, line <I>nº_linea</P>
+</I><P>&nbsp;</P>
+<P>nombre_archivo y nºlinea son el nombre del archivo y el n&uacute;mero de linea donde aparece la llamada de funci&oacute;n.</P>
+<I><P>&nbsp;</P>
+<LI><A NAME="_Ref365336673"><A NAME="_Toc365786868"><A NAME="_Toc365907221"><A NAME="_Toc366027101"><B><FONT FACE="Arial">Funciones de entrada y salida (E/S) est&aacute;ndar: printf, scanf, putchar, getchar, puts y gets.</A></A></A></A></LI>
+</B></I></FONT><P>El C trata varios dispositivos como si fuesen archivos. Hay unos cuantos predefinidos que se abree al iniciar el programa dandole unos descriptores:</P>
+<P>&nbsp;</P>
+<P>&#9;</P>
+<P ALIGN="LEFT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=367>
+<TR><TD WIDTH="28%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Descriptor</B></TD>
+<TD WIDTH="72%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Dispositivo por defecto</B></TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>stdin</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>entrada, el teclado</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>stdout</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>salida, la pantalla</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>stderr</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>error, la pantalla</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>stdaux</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>auxiliar, el puerto en serie</TD>
+</TR>
+<TR><TD WIDTH="28%" VALIGN="TOP">
+<P>stdprn</TD>
+<TD WIDTH="72%" VALIGN="TOP">
+<P>impresora, LPT1</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>&nbsp;</P>
+<P>El final de un fichero de texto se se&ntilde;ala con la marca EOF. Un programa que utilize estas funciones puede ser redireccionado con los modificadores de canalizaci&oacute;n y redirecci&oacute;n del DOS (|,&lt;,&gt;).</P>
+<P>&#9;</P>
+<P>En stdio.h:</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int printf(const char *formato [,argumentos,...]);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int scanf((const char * formato [,direcciones,...]);</P>
+</I><P>&nbsp;</P>
+<P>printf escribe un mensaje formateado en stdout y scanf lee datos formateados de stdin. Hay que se&ntilde;alar (en esto se reincidir&aacute; m&aacute;s adelante) los par&aacute;metros pasados a las funciones son copias de los mismos. Es por ello que si queremos modificar las variables originales debemos pasar la posici&oacute;n de la variable a la funci&oacute;n. Este es el caso de scanf en que se pasa la direcc&iacute;on de la variable y no la variable en si misma. El operador que nos da la direcci&oacute;n de una variable es ‘&amp;’.</P>
+<P>Ej:</P>
+<P>int ent;</P>
+<P>&nbsp;</P>
+<P>&#9;scanf(&quot;%i&quot;,&amp;ent);/*Con &amp;.*/</P>
+<P>&#9;printf(&quot;El entero introducido es %i&quot;, ent);/*Sin &amp;.*/</P>
+<P>&nbsp;</P>
+<I><P>formato</I> especifica una cadena de caracteres con el formato a utilizar. En esta cadena pueden haber tanto carateres imprimibles como c&oacute;digos de formato. Todos estos modificadores y c&oacute;digos de formato son v&aacute;lidos para ambas funciones. Cada uno de los c&oacute;digos de formato que usemos lleva el formato:</P>
+<P>&nbsp;</P>
+<I><P>% [banderas] [ancho] [.prec] [F|N|h|l] tipo</P>
+</I><P>&nbsp;</P>
+<U><P>Especificador de formato [banderas].</P>
+</U><P>&nbsp;</P>
+<P ALIGN="RIGHT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=568>
+<TR><TD WIDTH="15%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>[flag]</B></TD>
+<TD WIDTH="85%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Acci&oacute;n</B></TD>
+</TR>
+<TR><TD WIDTH="15%" VALIGN="TOP">
+<P>ninguna</TD>
+<TD WIDTH="85%" VALIGN="TOP">
+<P>Justificado a la derecha; rellenos con 0 o blancos a la izq.</TD>
+</TR>
+<TR><TD WIDTH="15%" VALIGN="TOP">
+<P>-</TD>
+<TD WIDTH="85%" VALIGN="TOP">
+<P>Justificado a la izquierda; rellenos con espacios a la derecha</TD>
+</TR>
+<TR><TD WIDTH="15%" VALIGN="TOP">
+<P>+</TD>
+<TD WIDTH="85%" VALIGN="TOP">
+<P>Siempre empieza con + o -</TD>
+</TR>
+<TR><TD WIDTH="15%" VALIGN="TOP">
+<P>blanco</TD>
+<TD WIDTH="85%" VALIGN="TOP">
+<P>Imprime signo para valores negativos solamente</TD>
+</TR>
+<TR><TD WIDTH="15%" VALIGN="TOP">
+<P>#</TD>
+<TD WIDTH="85%" VALIGN="TOP">
+<P>Convierte usando forma alternativa</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<U><P>Formas alternativas para la bandera #.</P>
+</U><P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=539>
+<TR><TD WIDTH="22%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Tipos</B></TD>
+<TD WIDTH="78%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Efecto</B></TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>c,s,d,i,u</TD>
+<TD WIDTH="78%" VALIGN="TOP">
+<P>no tiene efecto</TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>o</TD>
+<TD WIDTH="78%" VALIGN="TOP">
+<P>Los argumentos distintos de 0 empiezan con 0</TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>x o X</TD>
+<TD WIDTH="78%" VALIGN="TOP">
+<P>Los argumentos empiezan con 0x o 0X</TD>
+</TR>
+<TR><TD WIDTH="22%" VALIGN="TOP">
+<P>e, E, f, g</TD>
+<TD WIDTH="78%" VALIGN="TOP">
+<P>Siempre usa punto decimal</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<U><P>Especificaci&oacute;n [ancho].</P>
+</U><P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=549>
+<TR><TD WIDTH="16%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Anchura</B></TD>
+<TD WIDTH="84%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Acci&oacute;n</B></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>n (Nº)</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Anchura m&iacute;nima, rellenar con espacios</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>0n </TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Anchura m&iacute;nima, rellenar con ceros a la izquierda</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>*</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>El pr&oacute;ximo argumento de la lista es la anchura</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<U><P>&nbsp;</P>
+<P>Especificaci&oacute;n <I>[.prec]</P>
+</I><P>&nbsp;</P></U>
+<P ALIGN="RIGHT"><TABLE BORDER CELLSPACING=1 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=567>
+<TR><TD WIDTH="19%" VALIGN="TOP">
+<B><P>precisi&oacute;n</B></TD>
+<TD WIDTH="81%" VALIGN="TOP">
+<B><P>Acci&oacute;n</B></TD>
+</TR>
+<TR><TD WIDTH="19%" VALIGN="TOP">
+<P>ninguna</TD>
+<TD WIDTH="81%" VALIGN="TOP">
+<P>Precisi&oacute;n por defecto</TD>
+</TR>
+<TR><TD WIDTH="19%" VALIGN="TOP">
+<P>.0</TD>
+<TD WIDTH="81%" VALIGN="TOP">
+<P>d,i,o,u,x -&gt; Precisi&oacute;n por defecto.</P>
+<P>E,e,f -&gt; Sin punto decimal.</TD>
+</TR>
+<TR><TD WIDTH="19%" VALIGN="TOP">
+<P>.n</TD>
+<TD WIDTH="81%" VALIGN="TOP">
+<P>n caracteres decimales.</TD>
+</TR>
+<TR><TD WIDTH="19%" VALIGN="TOP">
+<P>*</TD>
+<TD WIDTH="81%" VALIGN="TOP">
+<P>El pr&oacute;ximo argumento de la lista es la precisi&oacute;n.</TD>
+</TR>
+</TABLE>
+</P>
+
+<U><P>&nbsp;</P>
+<P>Especificaci&oacute;n <I>[F|N|h|l] (formato).</P>
+</I><P>&nbsp;</P></U>
+<P ALIGN="LEFT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=372>
+<TR><TD WIDTH="25%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>formato</B></TD>
+<TD WIDTH="75%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Formato a utilizar</B></TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>F</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>puntero far</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>N</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>puntero near</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>h</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>d,i,o,u,x,X  es un short int</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>l</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>d,i,o,u,x,X  es un long int</P>
+<P>E,e,f,g,G  es un double</TD>
+</TR>
+<TR><TD WIDTH="25%" VALIGN="TOP">
+<P>L</TD>
+<TD WIDTH="75%" VALIGN="TOP">
+<P>E,e,f,g,G  es un double</TD>
+</TR>
+</TABLE>
+</P>
+
+<U><P>&nbsp;</P>
+<P>Especificaci&oacute;n de tipo.</P>
+<P>&nbsp;</P></U>
+<P ALIGN="RIGHT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=568>
+<TR><TD WIDTH="12%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Tipo</B></TD>
+<TD WIDTH="88%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Acci&oacute;n</B></TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>d,i</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>signed int</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>o</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>signed int (octal)</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>u</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>unsigned int</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>x</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>printf -&gt; unsigned int (hexa) ej: 8e9f</P>
+<P>scanf -&gt; signed int (hexa)</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>X</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>printf -&gt; unsigned int (hexa) ej: 8E9F</P>
+<P>scanf -&gt; signed long (hexa)</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>f</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Punto flotante [-]dddd.ddd</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>e</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Pto flotante cient&iacute;fico [-]d.ddd e [+/-]ddd</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>g</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Formato e o f basado en la precisi&oacute;n</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>E</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Igual que e pero usa E para exponente</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>G</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Igual que g pero usa E para exponente</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>c</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Car&aacute;cter simple</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>s</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Imprime caracteres terminados en '\0' o [.prec]</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>%</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>El car&aacute;cter %</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>p</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Puntero: near = YYYY; far = XXXX:YYYY</TD>
+</TR>
+<TR><TD WIDTH="12%" VALIGN="TOP">
+<P>n</TD>
+<TD WIDTH="88%" VALIGN="TOP">
+<P>Almacena n&uacute;mero de caracteres escritos en la direcci&oacute;n apuntada por el argumento de entrada</TD>
+</TR>
+</TABLE>
+</P>
+
+<U><P>&nbsp;</P>
+</U><P>Ej:</P>
+<P>&#9;&#9;&#9;Sentencia printf ()        Salida</P>
+<P>              ---------------------   --------------</P>
+<P>              (":%f:", 123.456)       :123.456001:</P>
+<P>              (":%e:", 123.456)       :1.234560e+02:</P>
+<P>              (":%g:", 123.456)       :123.456:</P>
+<P>              (":%-2.5f:", 123.456)   :123.45600:</P>
+<P>              (":%-5.2f:", 123.456)   :123.46:</P>
+<P>              (":%5.5f:", 123.456)    :123.45600:</P>
+<P>              (":%10s:", "hola")      :      hola:</P>
+<P>              (":%-10s:", "hola")     :hola      :</P>
+<P>              (":%2.3s:", "hola")     :hol:</P>
+<P>              (":%x:", 15)            :f:</P>
+<P>              (":%o:", 15)            :17:</P>
+<P>              (":%05d:", 15)          :00015:</P>
+<I><P>&#9;&#9;   </I>("%x", 2)                2</P>
+<P>              ("%#x", 2)               0x2</P>
+<P>&#9;&#9;   ("%#X", 2)               0X2</P>
+<P>              ("%f", 1.2)              1.200000</P>
+<P>              ("%g", 1.2)              1.2</P>
+<P>              ("%#g", 1.2)             1.200000</P>
+<P>              ("%*.*f", 5, 4, 1.2)     1.2000</P>
+<I><P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int putchar(int c);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int getchar(void);</P>
+<P>&nbsp;</P>
+</I><P>putchar pone un car&aacute;cter en stdout y getchar toma un car&aacute;cter de stdin. Ambas devuelven el car&aacute;cter escrito o leido o la constante EOF si hubo un error o fin de fichero.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int puts(const char *s);</P>
+<P>&nbsp;</P>
+</I><P>Copia una cadena en stdout y a&ntilde;ade al final un car&aacute;cter de nueva linea. Convierte los ‘\n’ en ‘\n\r’. Si hay error devuelve EOF. Si todo bi&eacute;n devuelve un n&uacute;mero no negativo.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *gets(char *cadena);</P>
+<P>&nbsp;</P>
+</I><P>Toma de stdin una cadena almacenandola en <I>cadena</I>. Para finalizar necesita un car&aacute;cter de nueva linea que ser&aacute; reemplazado por un null. Todo lo anterior al car&aacute;cter de nueva linea es copiado en string. Si hay error o fin de fichero devuelve null. Si todo bi&eacute;n devuelve <I>cadena</I>.</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Toc365786869"><A NAME="_Toc365907222"><A NAME="_Toc366027102"><B><I><FONT FACE="Arial">Funciones de entrada y salida por consola: cprintf, cscanf, putch, getch, getche, ungetch, cputs, cgets y kbhit.</A></A></A></LI>
+</B></I></FONT><P>Las siguientes funciones son parecidas a las anteriores pero trabajan directamente con la pantalla y el teclado (son m&aacute;s r&aacute;pidas pero no son redireccionables). Adem&aacute;s no introducen un retorno de carro despu&eacute;s de cada car&aacute;cter de nueva linea, por ello para se&ntilde;alar una nueva linea debemos usar \n\r en vez de solo \n.</P>
+<P>&nbsp;</P>
+<P>En conio.h:</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int cprintf(const char *formato [,argumentos,...]);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int cscanf(const char *formato [,direcciones,...]);</P>
+</I><P>&nbsp;</P>
+<P>Estas funciones son hom&oacute;logas a printf y scanf pero en vez de usar stdin y stdout utilizan directamente el monitor y el teclado.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int putch(int ch);</P>
+</I><P>Como putchar.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int getch(void);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int getche(void);</P>
+<P>&nbsp;</P>
+</I><P>Ambas leen un car&aacute;cter del teclado. getch no lo muestra por pantalla y getch si. El valor devuelto es el c&oacute;digo de exploraci&oacute;n del teclado de la tecla; ASCII para los caracteres normales. Para las teclas especiales primero devuelve un 0 y a la siguiente llamada a una de estas funciones devuelve un c&oacute;digo especial.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int ungetch(int ch);</P>
+<P>&nbsp;</P>
+</I><P>Pone el car&aacute;cter ch en la cola del teclado haciendo que sea el pr&oacute;ximo car&aacute;cter leido. Falla si es llamada m&aacute;s de una vez antes de leer el teclado. Devuelve EOF si hay error, si no devuelve ch.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int cputs(const char *cad);</P>
+<P>&nbsp;</P>
+</I><P>Escribe una cadena en la pantalla de texto sin a&ntilde;adir un car&aacute;cter del nueva linea. No convierte ‘\n’ en ‘\n\r’. Devuelve el &uacute;ltimo car&aacute;cter escrito.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *cgets(char *cad);</P>
+<P>&nbsp;</P>
+</I><P>Lee una cadena del teclado y la almacena en <I>cad</I>. Lee hasta encontrar una combinaci&oacute;n de retorno de carro/fin de linea (CR\LF) o hasta almacenar un m&aacute;ximo de caracteres. La combinaci&oacute;n CR/LF se reemplaza con un null. Antes de llamar a esta funci&oacute;n se tiene que poner en str[0] el n&uacute;mero m&aacute;ximo de caracteres a leer. Al terminar cgets pone en str[1] el n&uacute;mero de caracteres que ley&oacute;. Por ello, la cadena de caractes leida comienza en str[2] y la variable str debe tener un tama&ntilde;o total de al menos str[0]+3 bytes de largo. Si termina con &eacute;xito cgets devuelve un puntero a str[2].</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int kbhit(void);</P>
+<P>&nbsp;</P>
+</I><P>Chequ&eacute;a si se ha pulsado una tecla sin quitarla de bufer del teclado. Esta tecla puede ser procesada por ejemplo, por getch o getche. Si hay una tecla disponible devuelve no cero si no devuelve 0.</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Toc365907223"><A NAME="_Toc366027103"><B><I><FONT FACE="Arial">Funciones de formato de salida por consola: lowvideo, highvideo y normvideo. Constante directvideo.</A></A></LI></OL>
+
+</B></I></FONT><P>En conio.h:</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void lowvideo(void);</P>
+<P>&nbsp;</P>
+</I><P>Selecciona el bit de intensidad baja para los siguientes caracteres que se escriban en pantalla.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void highvideo(void);</P>
+<P>&nbsp;</P>
+</I><P>Selecciona el bit de intensidad alta para los siguientes caracteres que se escriban en pantalla.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void normvideo(void);</P>
+<P>&nbsp;</P>
+</I><P>Selecciona el bit de intensidad que hab&iacute;a cuando comenz&oacute; el programa para los siguientes caracteres que se escriban en pantalla.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int directvideo; (variable global).</P>
+</I><P>&nbsp;</P>
+<P>Controla si la salida de cararacteres por pantalla se realiza directamente a la memoria de pantalla (1, valor por defecto), o usando llamadas BIOS (m&aacute;s lenta pero m&aacute;s compatible).</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786870"><A NAME="_Toc365907224"><A NAME="_Toc366027104"></B><FONT FACE="Arial" SIZE=4>Variables y funciones.</A></A></A></LI>
+<OL>
+
+<LI><A NAME="_Toc365786871"><A NAME="_Toc365907225"><A NAME="_Toc366027105"></FONT><B><I><FONT FACE="Arial">Declaraci&oacute;n y definici&oacute;n de variables y funciones.</A></A></A></LI>
+</B></I></FONT><P>Donde escribimos el c&oacute;digo de la funci&oacute;n es donde definimos la funci&oacute;n. La sintaxis es:</P>
+<P>&nbsp;</P>
+<P>tipo_de_retorno nombre_de_funci&oacute;n(tipos_lista_de_par&aacute;metros)</P>
+<P>{</P>
+<P>&#9;sentencias...</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>Donde tipos_lista_de_par&aacute;metros es una lista con los tipos y sus respectivos nombres, de cada par&aacute;metros que se le pasa a la funci&oacute;n, separados por comas.</P>
+<B><P>&nbsp;</P>
+</B><P>Algo que se presta a confusi&oacute;n: en la declaraci&oacute;n de una funci&oacute;n simplemente informamos del nombre de la funci&oacute;n, el tip de valor que devuelve y los tipos de par&aacute;metros que recibe. En la definici&oacute;n adem&aacute;s informamos de lo que hace y como lo hace. Esto &uacute;ltimo lo hacemos en el <U>cuerpo de la funci&oacute;n</U> que es el conjunto de sentencias que hay dentro de ella.</P>
+<P>&nbsp;</P>
+<P>Todas las funciones devuelven un valor (en las de tipo void se ignora). Para especificar este valor se utiliza <U>return</U>:</P>
+<P>&nbsp;</P>
+<P>&#9;return expresi&oacute;n_de_retorno</P>
+<P>&nbsp;</P>
+<P>Esta sentencia fuerza inmediatamente el fin de la funci&oacute;n devolviendo expresi&oacute;n. En las funciones de tipo void se hace:</P>
+<P>&nbsp;</P>
+<P>&#9;return;</P>
+<P>&nbsp;</P>
+<P>Ej:</P>
+<P>&nbsp;</P>
+<P>#include &lt;stdio.h&gt;</P>
+<P>&nbsp;</P>
+<P>int func(int);</P>
+<P>&nbsp;</P>
+<P>void main(void)</P>
+<P>{</P>
+<P>const i=8;</P>
+<P>&nbsp;</P>
+<P>&#9;printf(&quot;func devolvi&oacute; %i&quot;,func(i));</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>int func(int ent)</P>
+<P>{</P>
+<P>&#9;return ent*3;</P>
+<P>}</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786872"><A NAME="_Toc365907226"><A NAME="_Toc366027106"><I><FONT FACE="Arial">Tipos de variables seg&uacute;n el lugar de la declaraci&oacute;n: variables locales, par&aacute;metros formales y variables globales.</A></A></A></LI>
+</B></I></FONT><U><P>Variables locales</U> son aquellas que se declaran dentro del cuerpo de una funci&oacute;n y solo se conocen (est&aacute;n definidas) dentro de esta funci&oacute;n. Cualquier intento de utilizarla fuera de la funci&oacute;n en donde fue declarada provoca un error de compilaci&oacute;n. Son creadas al entrar a la funci&oacute;n y destruidas al salir de ella.</P>
+<P>&nbsp;</P>
+<U><P>Par&aacute;metros formales</U> son las variables que se le pasa a una funci&oacute;n. Tienen &aacute;mbito de variables locales (&aacute;mbito local, dentro de la funci&oacute;n). </P>
+<P>&nbsp;</P>
+<P>Las <U>variables globales</U> son declaradas fuera de cualquier funci&oacute;n, se conocen en cualquier parte del programa a partir de donde se han declarado y hasta que termina el fichero (m&oacute;dulo). Hay que tener esto &uacute;ltimo en cuenta sobre todo en programas con varios m&oacute;dulos ya que una variable global solo se conocer&aacute; en el fichero donde es declarada, si queremos utilizar una variable a lo largode todo el programa debemos declararla en todos los ficheros fuente del mismo. Estas reglas de &aacute;mbito se aplican tambi&eacute;n a las funciones.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786873"><A NAME="_Toc365907227"><A NAME="_Toc366027107"><I><FONT FACE="Arial">Especificadores de clase de almacenamiento: extern, static, register y auto.</A></A></A></LI>
+</B></I></FONT><P>Todas se utilizan anteponiendolas al tipo de variable.</P>
+<P>Ej:</P>
+<P>&#9;int i;</P>
+<P>&#9;extern int ei;</P>
+<P>&nbsp;</P>
+<P>Con <U>extern</U> le ‘decimos’ al compilador que la variable ya existe en otro m&oacute;dulo y tan solo la nombramos para poder utilizarla (es externa a este m&oacute;dulo). Con este modificador no se reserva espacio de memoria para la variable. Por ejemplo, tenemos un programa que consta de dos m&oacute;dulos:</P>
+<P>&nbsp;</P>
+<P>/*&#9;M&oacute;dulo 1*/&#9;&#9;/*M&oacute;dulo 2*/</P>
+<P>int i;&#9;&#9;&#9;extern int i;/*Utilizamos i de m.1.</P>
+<P>int j;&#9;&#9;&#9;int j;/*Error, dos variables iguales en &#9;&#9;&#9;&#9;&#9;el mismo &aacute;mbito.*/</P>
+<P>main()&#9;&#9;&#9;func1()</P>
+<P>{&#9;&#9;&#9;&#9;{</P>
+<P>&#9;...&#9;&#9;&#9;&#9;...</P>
+<P>}&#9;&#9;&#9;&#9;}</P>
+<P>&nbsp;</P>
+<P>Hay dos tipos de variables est&aacute;ticas (<U>static</U>). Las <U>est&aacute;ticas locales</U> tiene el mismo &aacute;mbito que las locales pero existen durante todo el programa, no son destruidas al salir de una funci&oacute;n y solo son inicializadas la primera vez que llamamos a la funci&oacute;n. Conservan el valor entre llamadas a la funci&oacute;n. Las <U>est&aacute;ticas globales</U> tiene el mismo &aacute;mbito de una variable global normal pero solo conocida en el fichero donde se declara como static. Para poder compartir una variable est&aacute;tica global en diferentes m&oacute;dulos debemos declararla en ambos m&oacute;dulos (Por ejemplo en un fichero de cabecera).</P>
+<P>&nbsp;</P>
+<P>Con el modificador de tipo <U>register</U> le pedimos al compilador que almacene la variable en un registro de la CPU para un m&aacute;s r&aacute;pido uso de la variable. Se utiliza sobre todo para variables del tipo contador que son untilizadas con mucha frecuencia. </P>
+<P>Ej:</P>
+<P>register int f;</P>
+<P>&nbsp;</P>
+<P>Hay que tener en cuenta que esto es solo un petici&oacute;n y que la variable se almacenar&aacute; en un registro solo si hay espacio disponible en alg&uacute;n registro de la CPU.</P>
+<P>&nbsp;</P>
+<P>Por &uacute;ltimo palabra reservada <U>auto</U> define una variable local que tiene un tiempo de vida local. Es el tipo por omisi&oacute;n, ponerla y no ponerla es lo mismo y por ello es raramente utilizada.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786874"><A NAME="_Toc365907228"><A NAME="_Toc366027108"><I><FONT FACE="Arial">Reglas de &aacute;mbito de una funci&oacute;n.</A></A></A></LI>
+</B></I></FONT><P>Las reglas de &aacute;mbito se refieren a la porci&oacute;n de c&oacute;digo donde es conocido algo (funci&oacute;n, variable...). Como con las variables, para poder utilizar algo debe haberse previamente declarado.</P>
+<P>Ej:</P>
+<P>&#9;/*Fichero 1*/&#9;&#9;/*Fichero 2*/</P>
+<P>&#9;void fc(void);&#9;&#9;extern void fc(void);</P>
+<P>&nbsp;</P>
+<P>&#9;void main(void)&#9;&#9;void f2(void)</P>
+<P>&#9;{&#9;&#9;&#9;&#9;{</P>
+<P>&#9;&#9;fc();&#9;&#9;&#9;&#9;fc();</P>
+<P>&#9;&#9;...&#9;&#9;&#9;&#9;...</P>
+<P>&#9;}&#9;&#9;&#9;&#9;&#9;...</P>
+<P>&#9;&#9;&#9;&#9;&#9;&#9;...</P>
+<P>&#9;void fc(void)&#9;&#9;}</P>
+<P>&#9;{</P>
+<P>&#9;...</P>
+<P>&#9;}</P>
+<P>&nbsp;</P>
+<P>Aqu&iacute; fc se puede en cualquier parte de ambos m&oacute;dulos porque ha sido declarada al principio de cada m&oacute;dulo.</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Ref365818721"><A NAME="_Toc365907229"><A NAME="_Toc366027109"><B><I><FONT FACE="Arial">Paso de par&aacute;metros a una funci&oacute;n.</A></A></A></LI>
+</B></I></FONT><P>Para que una funci&oacute;n pueda utilizar argumentos, debemos declararlos en el cuerpo de la funci&oacute;n. Estos argumentos tienen el &aacute;mbito de variables locales (solo dentro de la funci&oacute;n).</P>
+<P>&nbsp;</P>
+<P>Ten en cuenta que al pasar un par&aacute;metro a una funci&oacute;n realmente se le pasa una copia de este par&aacute;metro, por ello no se podr&aacute; modificar la variable original a memos que le pasemos la direcci&oacute;n de la variable (realmente una copia de la direcci&oacute;n). Entonces, con lo dicho tenemos que hay dos formas de pasar argumentos a una funci&oacute;n:</P>
+<P>&nbsp;</P>
+<P>-<U>Por valor</U>: la forma por omisi&oacute;n, se pasa una copia de la variable, cualquier modificaci&oacute;n en la copia no tendr&aacute; efecto en la variable original.</P>
+<P>&nbsp;</P>
+<P>-<U>Por referencia</U>: se pasa una copia de la direcci&oacute;n de la variable; de la posici&oacute;n en memoria de la variable. Al saber la posici&oacute;n (mediante un puntero a la variable) podemos modificarla. El operador que debuelve la direcci&oacute;n de una variable es el amperstand (&amp;). La excepci&oacute;n a esto es el paso de arrays a funciones (ej: cadenas) donde cualquier referencia al nombre de la matriz devuelve la posici&oacute;n del primer elemento. Para una explicaci&oacute;n m&aacute;s detallada ver el cap&iacute;tulo 7.1, Arrays unidimensionales (vectores). Cadenas de caracteres. y el 6.5, Paso de par&aacute;metros a una funci&oacute;n..</P>
+<P>&nbsp;</P>
+<P>Un ejemplo muy habitual es el uso de printf y scanf. Los par&aacute;metros de printf se pasan por valor (menos la cadena):</P>
+<P>int f=8;</P>
+<P>&nbsp;</P>
+<P>&#9;printf(&quot;El entero f vale: %i. La cadena %s&quot;, f, s);</P>
+<P>&nbsp;</P>
+<P>Y en scanf se pasan por referencia:</P>
+<P>&nbsp;</P>
+<P>&#9;scanf(&quot;%i&quot;, &amp;f);</P>
+<P>&#9;scanf("%s", s);</P>
+<P>&nbsp;</P>
+<P>Las variables que indican posiciones de memoria se llaman punteros (Ver cap&iacute;tulo 8, Punteros.).</P>
+<P>&nbsp;</P>
+<P>Como un puntero es una variable que almacena una posici&oacute;n de memoria y eso es lo que queremos al pasar un argumento por referencia, un uso frecuente de los punteros es al pasar argumentos por referencia a una funci&oacute;n:</P>
+<P>Ej:</P>
+<P>&#9;void f1(long *pl)</P>
+<P>&#9;{</P>
+<P>&#9;&#9;*pl=8;&#9;/*Modifica la variable original.</P>
+<P>&#9;}</P>
+<P>&nbsp;</P>
+<P>&#9;void main(void)</P>
+<P>&#9;{</P>
+<P>&#9;long lar=10;</P>
+<P>&#9;&#9;/*Se le pasa la direcci&oacute;n de lar.*/&#9;&#9;</P>
+<P>&#9;&#9;f1(&amp;lar);</P>
+<P>&#9;}</P>
+<P>&nbsp;</P>
+<P>¿Cuanto vale lar al final de main?</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786875"><A NAME="_Toc365907230"><A NAME="_Toc366027110"><I><FONT FACE="Arial">Argumentos de la funci&oacute;n main.</A></A></A></LI>
+</B></I></FONT><P>Podemos declarar argumentos para la funci&oacute;n main seg&uacute;n nos interese o no recoger par&aacute;metros de la linea de comando (ej, desde el DOS). La forma es:</P>
+<P>&nbsp;</P>
+<P>void main(int argc, char *argv[])</P>
+<P>&nbsp;</P>
+<P>argc indica el n&uacute;mero de parametros totales que hay, incluyendo el nombre y ruta del programa que es pasado siempre como primer argumento de la linea de comandos. Por ello argc es igual al n&uacute;mero de argumentos de la linea de comandos m&aacute;s uno.</P>
+<P>&nbsp;</P>
+<P>Ten en cuenta que esto lo podemos modificar a nuestro antojo y podemos tambi&eacute;n declarar main sin argumentos:</P>
+<P>&nbsp;</P>
+<P>void main(void)</P>
+<P>&nbsp;</P>
+<P>Por &uacute;ltimo tambi&eacute;n podemos declarar main de forma que puede devolver un valor al sistema operativo por medio de return:</P>
+<P>&nbsp;</P>
+<P>int main(void)</P>
+<P>&nbsp;</P>
+<P>o tambi&eacute;n ambos casos a la vez:</P>
+<P>&nbsp;</P>
+<P>int main(int argc, char *argv[])</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786876"><A NAME="_Toc365907231"><A NAME="_Toc366027111"><I><FONT FACE="Arial">Recursividad.</A></A></A></LI>
+</B></I></FONT><P>Este concepto se refiere a la posibilidad que tiene una funci&oacute;n en C de llamarse a s&iacute; misma. Un ejemplo t&iacute;pico es el de una funci&oacute;n que liste el contenido de un arbol de directorios.</P>
+<P>&nbsp;</P>
+<P>Para no entrar demasiado en detalles imaginamos que tenemos ya implementadas las siguientes funciones:</P>
+<P>&nbsp;</P>
+<P>int EsDirectorio(const char *entrada);</P>
+<P>/*Devuelve verdadero si el archivo nombre es un directorio. Se especifica el nombre completo.*/</P>
+<P>&nbsp;</P>
+<P>int ProximaEntrada(const char *ruta,char *entrada);</P>
+<P>/*Almacena en entrada el nombre completo (con la ruta) de la pr&oacute;xima entrada del directorio ruta (puede ser un directorio o un archivo). Si no hab&iacute;a m&aacute;s entradas en el directorio devuelve falso.*/</P>
+<P>&nbsp;</P>
+<P>void ListaArbol(const char *ruta)</P>
+<P>{</P>
+<P>char entrada[80];</P>
+<P>&nbsp;</P>
+<P>&#9;printf(&quot;\nListado del directorio %s&quot;,ruta);</P>
+<P>/*Primero mostramos los nombres de los archivos y directorios del directorio ruta.*/</P>
+<P>&#9;while(ProximaEntrada(ruta,entrada)){</P>
+<P>&#9;&#9;if(EsDirectorio(entrada)printf(&quot;\nDIR %s&quot;,entrada);</P>
+<P>&#9;&#9;else printf(&quot;\nARC %s&quot;, entrada);</P>
+<P>&#9;}</P>
+<P>/*Ahora llamamos recursivamente a la funci&oacute;n para listar el contenido de cada uno de los directorios hijos.*/</P>
+<P>&#9;while(ProximaEntrada(ruta,entrada)){</P>
+<P>&#9;&#9;if(EsDirectorio(entrada){</P>
+<P>/*Si es un directorio listarlo con una llamada recursiva.*/</P>
+<P>&#9;&#9;&#9;ListaArbol(entrada);</P>
+<P>&#9;&#9;}</P>
+<P>&#9;}</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>Observa que al escribir una funci&oacute;n recursiva es vital implementar un punto por donde se salga de la funci&oacute;n sin llamarse otra vez recursivamente. En este caso ser&iacute;a la finalizaci&oacute;n del while pero puede ser cualquier sentencia condicional.</P>
+<LI><A NAME="_Toc365786877"><A NAME="_Toc365907232"><A NAME="_Toc366027112"><B><I><FONT FACE="Arial">Separaci&oacute;n de un programa en varios ficheros.</A></A></A></LI>
+<LI><A NAME="_Toc365786878"><A NAME="_Toc365907233"><A NAME="_Toc366027113">N&uacute;mero variable de argumentos. Librer&iacute;a &lt;stdarg.h&gt;: va_list, va_arg(), va_start() y va_end(). Librer&iacute;a &lt;stdio.h&gt;: vprintf() y vscanf().</A></A></A></LI>
+<LI><A NAME="_Toc365786879"><A NAME="_Toc365907234"><A NAME="_Toc366027114">Directivas del preprocesador: #include, #define, #undef, #error, #if, #else, #elif, #endif, #ifdef, #ifndef, #line y #pragma.</A></A></A></LI></OL>
+
+</B></I></FONT><P>El preprocesador format&eacute;a el c&oacute;digo fuente de una manera legible por el compilador (expandiendo macros, incluyendo ficheros de cabecera...). Las instrucciones relacionadas con &eacute;l se llaman directivas del preprocesador. Como an&eacute;cdota se&ntilde;alar que existe un utilidas (CPP.EXE) que nos muestra el resultado de un fichero ya preprocesado.</P>
+<P>&nbsp;</P>
+<P>La directiva <U>#include</U> incluye un fichero en el c&oacute;digo fuente. Tiene dos formatos:</P>
+<P>&nbsp;</P>
+<P>&#9;#include &quot;fichero&quot;</P>
+<P>&#9;#include &lt;fichero&gt;</P>
+<P>&nbsp;</P>
+<P>La primera busca el fichero a partir del directorio actual y la segunda en la ruta del sistema (PATH) y en los directorios especificados en la opci&oacute;n ‘include directories’.</P>
+<P>&nbsp;</P>
+<P>La directiva <U>#define</U> tiene la sintaxis:</P>
+<P>&nbsp;</P>
+<P>&#9;#define identificador&#9;&#9;s&iacute;mbolo</P>
+<P>&nbsp;</P>
+<P>Donde s&iacute;mbolo puede ser cualquier cosa v&aacute;lida en C (variable, n&uacute;mero, cadena, otra macro, funci&oacute;n...). El preprocesador pondr&aacute; ‘s&iacute;mbolo’ en cada punto del fichero fuente donde encuentre un ‘indentificador’.</P>
+<P>Ej:</P>
+<P>&nbsp;</P>
+<P>#define PRIMER&#9;1</P>
+<P>#define SEGUNDO&#9;(PRIMER+PRIMER)</P>
+<P>#define TERCER&#9;(PRIMER+SEGUNDO)</P>
+<B><P>&nbsp;</P>
+</B><P>F&iacute;jate que he encerrado las operaciones entre par&eacute;ntesis, esto es porque de lo contrario podr&iacute;a pasar algo como:</P>
+<P>&nbsp;</P>
+<P>#define SEGUNDO PRIMER+PRIMER</P>
+<P>#define TERCER&#9;PRIMER+SEGUNDO</P>
+<P>&nbsp;</P>
+<P>&#9;a=SEGUNDO*TERCER</P>
+<P>&nbsp;</P>
+<P>Que se expande a:</P>
+<P>&nbsp;</P>
+<P>&#9;a = 1+1 * 1+2 que da a= (1*1)+1+2 --&gt;  4</P>
+<P>&nbsp;</P>
+<P>Con los par&eacute;ntesis da:</P>
+<P>&nbsp;</P>
+<P>&#9;a= (1+1) * (1+2) que da 2*3 -&gt; 6 que es lo deseado. Por ello recuerda siempre cerrar los s&iacute;mbolos de la derecha entre par&eacute;ntesis si son operaciones.</P>
+<P>&nbsp;</P>
+<P>Por &uacute;ltimo se&ntilde;alar que algo como:</P>
+<P>&nbsp;</P>
+<P>&#9;puts(&quot;PRIMER&quot;);</P>
+<P>&nbsp;</P>
+<P>No se expande a nada ya que &quot;PRIMER&quot; es un cadena y no se tiene en cuenta lo que est&eacute; dentro de ella.</P>
+<B><P>&nbsp;</P>
+</B><P>El bloque <U>#if #else if #else</U> es parecido al if del compilador a diferencia que ‘condici&oacute;n’ debe ser constante.</P>
+<P>&nbsp;</P>
+<B><P>&#9;</B>#if expresion_constante1</P>
+<P>&#9;&#9;sentensias1</P>
+<P>&#9;#else if expresion_constante2</P>
+<P>&#9;&#9;sentencias2</P>
+<P>&#9;#else</P>
+<P>&#9;&#9;sentencias3</P>
+<P>&#9;#endif</P>
+<P>&nbsp;</P>
+<P>Al igual que en el if del compilador se pueden concatenar cuantos #else if se quieran o no poner ninguno y se puede poner o no al final una directiva #else. El #endif final es obligatorio. Lo que hace este bloque es incluir sentencias en el c&oacute;digo fuente solo si expresion es verdadera (distinta de 0).</P>
+<B><P>&nbsp;</P>
+</B><P>Las directivas <U>#ifdef</U> y <U>#ifndef</U> tienen la sint&aacute;xis:</P>
+<P>&nbsp;</P>
+<P>&#9;#ifdef identificador</P>
+<P>&#9;&#9;sentencias</P>
+<P>&#9;#endif</P>
+<P>&nbsp;</P>
+<P>&#9;#ifndef identificador</P>
+<P>&#9;&#9;sentencias</P>
+<P>&#9;#endif</P>
+<P>&nbsp;</P>
+<P>Incluye las sentencias encerradas en el bloque solo si identificador ha sido ya definido (#ifdef) o no (#ifndef). Para definir un identificador, como vimos, se usa #define. Como nota se&ntilde;alar que hay otra sintaxis m&aacute;s antig&uuml;a pero id&eacute;ntica:</P>
+<P>&nbsp;</P>
+<P>&#9;#if defined(identificador)</P>
+<P>&#9;&#9;sentencias</P>
+<P>&#9;#endif</P>
+<P>&nbsp;</P>
+<P>&#9;#if !defined(identificador)</P>
+<P>&#9;&#9;sentencias</P>
+<P>&#9;#endif</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786880"><A NAME="_Toc365907235"><A NAME="_Toc366027115"></B><FONT FACE="Arial" SIZE=4>Arrays.</A></A></A></LI>
+</FONT><P>En C un array es un conjunto de variables del mismo tipo, correlativas, que se referencian por un mismo nombre. Para referirnos a un elemento en particular de un array debemos utilizar un &iacute;ndice.</P>
+<B><P>&nbsp;</P>
+<OL>
+
+<LI><A NAME="_Toc365786881"><A NAME="_Ref365835878"><A NAME="_Ref365835884"><A NAME="_Ref365836438"><A NAME="_Ref365836441"><A NAME="_Toc365907236"><A NAME="_Toc366027116"><I><FONT FACE="Arial">Arrays unidimensionales (vectores). Cadenas de caracteres.</A></A></A></A></A></A></A></LI>
+</B></I></FONT><P>Un vector es la forma de array m&aacute;s simple. Consta de una sucesi&oacute;n de variables correlativas. La sintaxis es la siguiente.</P>
+<P>&nbsp;</P>
+<P>Para declarar un vector:</P>
+<P>&nbsp;</P>
+<P>&#9;tipo_variable nombre_array [tama&ntilde;o]</P>
+<P>&nbsp;</P>
+<P>Donde tama&ntilde;o <U>tiene</U> que ser una expresi&oacute;n constante. Lo contrario da error.</P>
+<P>&nbsp;</P>
+<P>Para referirnos a un elemento en concreto de un array:</P>
+<B><P>&nbsp;</P>
+<P>&#9;</B>nombre_array [&iacute;ndice]</P>
+<P>&nbsp;</P>
+<P>Donde &iacute;ndice puede ser una expresi&oacute;n de cualquier tipo (que devuelva un valor). Esta &uacute;ltima expresi&oacute;n devuelve el elemento (del tipo de dato definido) en la posici&oacute;n indicada por &iacute;ndice. Ten en cuenta que en C el primer elemento de un array se &iacute;ndexa con 0, el segundo con 1, etc.</P>
+<P>&nbsp;</P>
+<P>Ej:</P>
+<P>&#9;long aL[10];</P>
+<P>&nbsp;</P>
+<P>Declarac&iacute;on de un array de 10 enteros. Su elementos van de aL[0] a aL[9].</P>
+<P>&nbsp;</P>
+<P>El C no comprueba los l&iacute;mites de los &iacute;ndices, as&iacute; que si te pasas al indexar un array puedes corromper zonas de memor&iacute;a y producir resultados inesperados.</P>
+<P>&nbsp;</P>
+<P>Como ya hemos visto, un uso muy com&uacute;n de los arrays unidimensionales son las cadenas de caracteres que son vectores de caracteres terminados por un car&aacute;cter nulo (valor ASCII 0, especificado con ‘\0’). Devido a esto &uacute;ltimo tenemos que tener en cuenta que la variable de cadena o array debe de tener, al menos, un car&aacute;cter m&aacute;s que la longitud de la cadena que contiene. Por ejemplo si queremos declarar un array de caracteres que puede contener una cadena de 9 caracteres (como m&aacute;ximo), debemos declarar:</P>
+<P>&nbsp;</P>
+<P>&#9;char sCad[10];</P>
+<P>&nbsp;</P>
+<P>Y si nos queremos referir al &uacute;ltimo car&aacute;cter de la cadena utilizaremos sCad[8] (sCad[9] es el car&aacute;cter nulo).</P>
+<P>&nbsp;</P>
+<P>Cuando escribimos una constante de cadena (ej: &quot;Una cadena&quot;) el C incluye autom&aacute;ticamente el caracter nulo al final.</P>
+<P>&nbsp;</P>
+<P>Y algo muy importante sobre los arrays: En C cuando ponemos solamente el nombre de un array, es como poner un puntero al primer elemento del array (Ver cap&iacute;tulo 8, Punteros.). Al utilizar los corchetes nos referimos a cada uno de los elementos del array, si no utilizamos corchetes nos referimos a la direcci&oacute;n del primer elemento del array. Lo dicho en este &uacute;ltimo p&aacute;rrafo es aplicable para todo tipo de arrays tanto uni como multidimensionales.</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Toc365786882"><A NAME="_Toc365907237"><A NAME="_Toc366027117"><B><I><FONT FACE="Arial">Arrays bidimensionales (matrices). Arrays de cadenas</A>.</A></A></LI>
+</B></I></FONT><P>Un array bidimensional es un array de arrrays. Me explico, es un array en donde cada uno de los elementos es a su vez un array. Por ejemplo, si queremos tener varias cadenas (cada una de ellas es un array de caracteres) agrupadas en forma de array, utilizaremos un matr&iacute;z de este tipo. La declaraci&oacute;n presenta la sintaxis:</P>
+<P>&nbsp;</P>
+<P>&#9;tipo_variable nombre [nºfilas] [nºcolumnas]</P>
+<P>&nbsp;</P>
+<P>Por ej:</P>
+<P>&nbsp;</P>
+<P>&#9;int aEnteros [10][20];</P>
+<P>&nbsp;</P>
+<P>Esto declara una matr&iacute;z de enteros de 10 arrays de 20 elementos. Recuerda que los especificadores de tama&ntilde;o deben ser expresiones constantes.</P>
+<P>&nbsp;</P>
+<P>Recuerda:</P>
+<P>&nbsp;</P>
+<P>&#9;int vEnte[10];/*Un vector de 10 enteros.*/</P>
+<P>&#9;int aEnt[10][20];/*Una matr&iacute;z de 10 vectores de 20 enteros cada uno (10 filas y 20 columnas).*/</P>
+<B><P>&nbsp;</P>
+</B><P>A los arrays unidimensionales se les suele llamar vectores. A los arrays bidimensionales se les suele llamar matrices.</P>
+<B><P>&nbsp;</P>
+</B><P>Para saver el tama&ntilde;o en bytes de una matr&iacute;z multiplicamos el n&uacute;mero de columnas por el de filas y por el tama&ntilde;o del tipo de variables con el que trabajamos:</P>
+<P>&nbsp;</P>
+<P>&#9;Nfilas*Ncolumnas*sizeof(tipo)</P>
+<P>&nbsp;</P>
+<P>Aunque tambi&eacute;n podemos utilizar directamente sizeof(nombre_array).</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786883"><A NAME="_Toc365907238"><A NAME="_Toc366027118"><I><FONT FACE="Arial">Arrays multidimensionales</A></A></LI>
+</B></I></FONT><P></A>Se pueden crear arrays de tantas dimensiones se quiera dependiendo del l&iacute;mite inpuesto por cada compilador. La forma general de declarar un array multidimensional es:</P>
+<P>&nbsp;</P>
+<P>&#9;tipo_dato nombre[tama&ntilde;o1][tama&ntilde;o2]…[tama&ntilde;oN];</P>
+<P>&nbsp;</P>
+<P>Siendo cada especificaci&oacute;n de tama&ntilde;o una expresi&oacute;n constante.</P>
+<P>&nbsp;</P>
+<P>La forma de acceso a un elemento es:</P>
+<P>&nbsp;</P>
+<P>&#9;nombre[&iacute;ndice1][&iacute;ndice2]…[&iacute;ndiceN]</P>
+<P>&nbsp;</P>
+<P>Ej:</P>
+<P>&#9;int aMulti[8][5][3];/*8 elementos. Cada uno de ellos es un array bidimensional de 5 elementos cada uno de los cuales es un array unidimensional de 3 elementos.*/</P>
+<P>&nbsp;</P>
+<P>&#9;aMulti[3][3][0] es un entero.</P>
+<P>&#9;aMulti[3][3] es un vector de 3 elementos.</P>
+<P>&#9;aMulti[3] es un array bidimensional de dimensiones [5][3].</P>
+<LI><A NAME="_Toc365786885"><A NAME="_Toc365907239"><A NAME="_Toc366027119"><B><I><FONT FACE="Arial">Inicializaci&oacute;n de arrays.</A></A></A></LI>
+</B></I></FONT><P>Al igual que el restor de las variables, a los arrays tambi&eacute;n se les puede dar un valor inicial. La forma de general de hacerlo es:</P>
+<P>&nbsp;</P>
+<P>&#9;tipo_dato nombre[tama&ntilde;o1]…[tama&ntilde;oN] = {lista_valores};</P>
+<P>&nbsp;</P>
+<P>Si tanto en el caso de los arrays simples como en el de los multidimensionales dejamos el primer indicador de tama&ntilde;o vacio (s&oacute;lo el primero), el compilador contar&iacute;a el n&uacute;mero de elementos. Si ponemos todos los indicadores y ponemos menos elementos s&oacute;lo los primeros se llenan con esto valores y el resto queda indefinido. Y si ponemos m&aacute;s elementos de los que pueden caber en el array que especificamos da un error de compilaci&oacute;n.</P>
+<P>&nbsp;</P>
+<P>Siendo lista_valores una lista de variables separadas por comas.</P>
+<P>Ej:</P>
+<P>int aEnts[6]={3,324,-234,9,34,56};</P>
+<P>&nbsp;</P>
+<P>/*Las dos siguientes inicializaciones hacen lo mismo.*/</P>
+<P>int aBid[3][2]={1,-345,9343,923,-3497,-830};</P>
+<P>int aBid[3][2]={{1,-345},{9343,923},{-3497,-830}};</P>
+<P>/*Fijate que son iguales lo &uacute;nico que en la segunda tenemos los elementos agrupados de una forma m&aacute;s legible. Tambi&eacute;n se pueden separar cada grupo separandolos con retornos de carro.*/</P>
+<P>int aBid[3][2]={{1,-345},</P>
+<P>&#9;{9343,923},</P>
+<P>&#9;{-3497,-830}};</P>
+<P>int aBid[3][2]={1,-345,</P>
+<P>&#9;9343,923,</P>
+<P>&#9;-3497,-830};</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Toc365786886"><A NAME="_Toc365907240"><A NAME="_Toc366027120"><B><I><FONT FACE="Arial">Paso de arrays a funciones.</A></A></LI></OL>
+
+</B></I></FONT><P>Recordemos el cap&iacute;tulo 6.5 "Paso de par&aacute;metros a una funci&oacute;n.", donde dec&iacute;a que al pasar una variable a una funci&oacute;n realmente se le pasa una copia de la variable y no la variable en s&iacute; y el cap&iacute;tulo 7.1 "Arrays unidimensionales (vectores). Cadenas de caracteres." donde se dice que al referirnos simplemente al nombre de un array nos referimos a la direcci&oacute;n del primer elemento del mismo.</P>
+<P>&nbsp;</P>
+<P>As&iacute; al pasarle a una funci&oacute;n simplemente el nombre del array le pasamos la direcci&oacute;n del primer elemento. Esta es la forma que se usa normalmente para pasarle un array a una funci&oacute;n:</P>
+<P>&nbsp;</P>
+<P>void f1(int ai[],int n)</P>
+<P>{</P>
+<P>int f;</P>
+<P>&nbsp;</P>
+<P>&#9;for(f=0;f&lt;n;f++)</P>
+<P>&#9;&#9;ai[f]=f;</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>Fijate que en el ejemplo tambi&eacute;n le pasamos un entero donde se&ntilde;alamos el n&uacute;mero de elementos del array, esto es algo muy generalizado en el paso de arrays a funciones. En el caso de una cadena no hace falta ya que el car&aacute;cter nulo marca el fin de la cadena:</P>
+<P>&nbsp;</P>
+<P>void fs(char *st)</P>
+<P>{/*Llena la cadena de caracteres con espacios.*/</P>
+<P>&#9;for(f=0;st[f];f++{</P>
+<P>&#9;&#9;st[f]=" ";</P>
+<P>&#9;}</P>
+<P>&#9;st[f]=0;</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>Tamb&iacute;en podemos utilizar en la declaraci&oacute;n de los par&aacute;metros de la funci&oacute;n un puntero ya que si le pasamos simplemente el nombre recibiremos la direcci&oacute;n del primer elemento:</P>
+<P>&nbsp;</P>
+<P>void f3(int *ai,int n)</P>
+<P>{</P>
+<P>int f;</P>
+<P>&nbsp;</P>
+<P>&#9;for(f=0;f&lt;n;f++)</P>
+<P>&#9;&#9;ai[f]=f;</P>
+<P>}</P>
+<B><P>&nbsp;</P>
+</B><P>Normalmente no se especifica el indicador de tama&ntilde;o del primer &iacute;ndice del array en la declaraci&oacute;n de la funci&oacute;n. Esto se hace porque as&iacute;, utilizando el sistema mostrado en los ejemplos, se puede trabajar con arrays de cualquier n&uacute;mero de elementos. Esto es aplicable para arrays de cualquier dimensi&oacute;n. Recuerda, el primer especificador de tama&ntilde;o no se pasa.</P>
+<P>Ej:</P>
+<P>void func1(int ar[]);/*unidimensional.*/</P>
+<P>void func2(int ar[][5]);/*bidimensional.*/</P>
+<P>void func3(int ar[][3][7]);/*tridimensional.*/</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Ref365836059"><A NAME="_Ref365836063"><A NAME="_Ref365864659"><A NAME="_Ref365864663"><A NAME="_Toc365907241"><A NAME="_Toc366027121"></B><FONT FACE="Arial" SIZE=4>Punteros.</A></A></A></A></A></A></A></LI>
+<OL>
+
+<LI><A NAME="_Toc365786887"><A NAME="_Toc365907242"><A NAME="_Toc366027122"></FONT><B><I><FONT FACE="Arial">Definici&oacute;n del concepto de puntero.</A></A></A></LI>
+</B></I></FONT><P>Los punteros son muy importantes en la programaci&oacute;n en C. Un puntero es una variable que contiene una direcci&oacute;n de memoria. Cuando un puntero contiene la direcci&oacute;n de otra variable se dice que <U>apunta</U> hacia esa variable. Por ejemplo, si p es un puntero que almacena la direcci&oacute;n en memoria de b que es una variable, se dice que p apunta a b. </P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786888"><A NAME="_Toc365907243"><A NAME="_Toc366027123"><I><FONT FACE="Arial">Declaraci&oacute;n de punteros.</A></A></A></LI>
+</B></I></FONT><P>La forma de declarar un puntero es:</P>
+<P>&nbsp;</P>
+<P>&#9;tipo_dato *nombre;</P>
+<P>&nbsp;</P>
+<P>O sea, igual que una declaraci&oacute;n normal pero antecidiendo nombre con un asterisco.</P>
+<B><P>&nbsp;</P>
+</B><P>Cualquier referencia al puntero en el c&oacute;digo del programa se referir&aacute; a la direcci&oacute;n de memoria almacenada en &eacute;l.</P>
+<B><LI><A NAME="_Toc365786889"><A NAME="_Toc365907244"><A NAME="_Toc366027124"><I><FONT FACE="Arial">Operadores de punteros: &amp; y *.</A></A></A></LI>
+</B></I></FONT><P>Estos dos operadores est&aacute;n directamente relacionados con el uso de punteros. Son monarios y no se debe confundir con el operadores de multiplicaci&oacute;n y el de la operaci&oacute;n and a nivel de bits.</P>
+<P>&nbsp;</P>
+<P>El <U>operador &amp;</U> o de indirecci&oacute;n devuelve la direcci&oacute;n en memoria del operando (direcci&oacute;n de…). O sea, el la posici&oacute;n en donde est&aacute; almacenado lo que aparezca a la derecha del operador.</P>
+<P>Ej:</P>
+<P>int a=134;</P>
+<P>&nbsp;</P>
+<P>&#9;printf(&quot;a es igual a %i y est&aacute; en la direcci&oacute;n %p&quot;,a,&amp;a);</P>
+<P>&nbsp;</P>
+<P>La salida sera algo parecido a:</P>
+<P>&#9;</P>
+<P>&#9;a es igual a 134 y est&aacute; en la direcci&oacute;n 3304:8794</P>
+<P>&nbsp;</P>
+<P>Date cuenta que la direcci&oacute;n puede variar seg&uacute;n la posici&oacute;n en memoria donde se cre&eacute; la variable.</P>
+<P>&nbsp;</P>
+<P>El <U>operador *</U> devuelve el valor de lo que est&eacute; almacenado en la direcci&oacute;n que le sigue (valor de…).</P>
+<P>Ej:</P>
+<P>int *a;</P>
+<P>int b=8967;</P>
+<P>&nbsp;</P>
+<P>&#9;a = &amp;b;</P>
+<P>&#9;printf(&quot;b= %i. *a=%i.&quot;,b,*a);&#9;</P>
+<P>&nbsp;</P>
+<P>La salida ser&aacute;: </P>
+<P>&nbsp;</P>
+<P>&#9;b= 8967. *a=8967.</P>
+<P>&nbsp;</P>
+<P>Fijate que algo como *&amp;a es igual que poner solo a, ya que lo que est&aacute; almacenado en la direcci&oacute;n de a es a.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786890"><A NAME="_Toc365907245"><A NAME="_Toc366027125"><I><FONT FACE="Arial">Aritm&eacute;tica de punteros.</A></A></A></LI>
+</B></I></FONT><P>Un puntero se puede modificar para que apunte a un lugar diferente. Los operadores utilizados para ello son +=, -=, ++, --.</P>
+<P>&nbsp;</P>
+<P>Los operadores de incremento y decremento, aplicados a un puntero, hacen que el puntero apunte a lo que haya inmediatamente despu&eacute;s o antes (respectivamente). En este cambio de valor se tiene en cuenta el tipo de variable a la que apunta el puntero. Por ejemplo, si p es un puntero a enteros largos cuya direcci&oacute;n es 00472 lo siguiente:</P>
+<P>&nbsp;</P>
+<P>&#9;p++;</P>
+<P>&#9;p++;</P>
+<P>&nbsp;</P>
+<P>Dejar&aacute; a p con el valor 00480 (00472 + 4 y 00476 +4). F&iacute;jate que cada vez p se incrementa en 4 ya que el tama&ntilde;o de un long es de 4 bytes.</P>
+<B><P>&nbsp;</P>
+</B><P>Los operadores += y -= incrementan y decrementan un puntero en tantos elementos como diga el operando de la derecha.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786891"><A NAME="_Toc365907246"><A NAME="_Toc366027126"><I><FONT FACE="Arial">Asignaci&oacute;n din&aacute;mica de memoria.</A></A></A></LI>
+<LI><A NAME="_Toc365786892"><A NAME="_Toc365907247"><A NAME="_Toc366027127">Punteros y arrays.</A></A></A></LI>
+</B></I></FONT><P>Hay una relaci&oacute;n directa entre ambos. Ya hemos visto que el nombre del array es en realidad un puntero al primer elemento del mismo. Por eso podemos acceder a cualquier elemento de un array tanto mediante indexado como utilizando la aritm&eacute;tica de punteros. Por ejemplo, las siguientes expresiones son equivalentes:</P>
+<P>&nbsp;</P>
+<P>En un array unidimensional:</P>
+<P>&nbsp;</P>
+<P>&#9;p[i] == *(p+i)</P>
+<P>&nbsp;</P>
+<P>Bidimensioanl:</P>
+<P>&nbsp;</P>
+<P>&#9;p[i][j] == *(*(p+i)+j)</P>
+<P>&nbsp;</P>
+<P>Realmente la &uacute;nica diferencia entre las dos notaciones es que con el indexado el c&aacute;lculo de la posici&oacute;n del elemento se hace cada vez que lo referenciemos mediante &iacute;ndices a diferencia que con un puntero donde la posici&oacute;n del elemento ya est&aacute; almacenado en el mismo y no tenemos que volver a c&aacute;lcularlo otra vez si queremos referenciar el mismo elemento u otro cercano. Es por ello que la notaci&oacute;n de punteros es m&aacute;s r&aacute;pida y m&aacute;s utilizada en la programaci&oacute;n profesional. Me refiero a la de almacenar la direcci&oacute;n del primer elemento en un puntero y ir incrementandolo (aritm&eacute;tica de punteros), la 2ª notaci&oacute;n puesta en el ejemplo no se utiliza.</P>
+<P>&nbsp;</P>
+<P>Podemos crear un array de cualquier tipo de variables. Incluso un array de punteros donde cada elemento del array es un puntero. Ej:</P>
+<P>&nbsp;</P>
+<P>/*Un array de punteros a cadenas caracteres, cada elemento apunta a una cadena.*/</P>
+<P>char *ar[]={</P>
+<P>&#9;&quot;Primer elemento&quot;,</P>
+<P>&#9;&quot;Segundo elemento&quot;,</P>
+<P>&#9;&quot;Otro elemento&quot;,</P>
+<P>&#9;&quot;Cada elemento es una puntero a caracteres&quot;,</P>
+<P>&#9;&quot;O sea una cadena de caracteres&quot;,</P>
+<P>&#9;&quot;&Uacute;ltimo elemento del array&quot;};</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786893"><A NAME="_Toc365907248"><A NAME="_Toc366027128"><I><FONT FACE="Arial">Inicializaciones de punteros.</A></A></A></LI>
+</B></I></FONT><P>Para inicializar un puntero utilizamos simplemente el operador de asignaci&oacute;n:</P>
+<P>&nbsp;</P>
+<P>&#9;int ent=10;/*Entero.*/</P>
+<P>&#9;int *p=NULL;/*Puntero nulo, no apunta a ning&uacute;n sitio.*/</P>
+<P>&#9;int *p2=&amp;ent;/*p2 apunta a ent.*/</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786894"><A NAME="_Toc365907249"><A NAME="_Toc366027129"><I><FONT FACE="Arial">Punteros a funciones.</A></A></A></LI>
+<LI><A NAME="_Toc365786895"><A NAME="_Toc365907250"><A NAME="_Toc366027130">Funciones qsort y bsearch, lfind y lsearch.</A></A></A></LI>
+<LI><A NAME="_Toc365786896"><A NAME="_Toc365907251"><A NAME="_Toc366027131">Tipo void y punteros.</A></A></A></LI>
+</B></I></FONT><P>Como ya hemos visto para indicar que una funci&oacute;n no devuelve valor alguno:</P>
+<P>&nbsp;</P>
+<P>&#9;void Func(...);</P>
+<P>&nbsp;</P>
+<P>Si la funci&oacute;n no recibe par&aacute;metros:</P>
+<P>&nbsp;</P>
+<P>&#9;ej: int Func(void);</P>
+<P>&nbsp;</P>
+<P>Los tipos void aplicados a punteros tienen otro uso. El de poder apuntar a cualquier tipo de dato. Para ello utilizamos un puntero del tipo void y a la hora de querer referirnos a un determinado elemento usamos el operador de modelado (casting). Ej:</P>
+<P>&nbsp;</P>
+<P>int i;</P>
+<P>float f;</P>
+<P>void *p=&amp;i;/*p apunta a i.*/</P>
+<P>&nbsp;</P>
+<P>void main(void)</P>
+<P>{</P>
+<P>&#9;*(int*)p=2;/*Se toma el valor de p como un entero, modifica i.*/</P>
+<P>&#9;p=&amp;f;/*p apunta a f.*/</P>
+<P>&#9;*(float*)p=3.14;/*Modifica f.*/</P>
+<P>}</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786897"><A NAME="_Toc365907252"><A NAME="_Toc366027132"><I><FONT FACE="Arial">Modificador de acceso const y punteros.</A></A></A></LI></OL>
+
+<LI><A NAME="_Toc365786898"><A NAME="_Toc365907253"><A NAME="_Toc366027133"></B></I></FONT><FONT FACE="Arial" SIZE=4>Tipos compuestos de datos.</A></A></A></LI>
+<OL>
+
+<LI><A NAME="_Toc365786899"><A NAME="_Toc365907254"><A NAME="_Toc366027134"></FONT><B><I><FONT FACE="Arial">Estructuras (struct).</A></A></A></LI>
+</B></I></FONT><P>Hay veces que nos interesa referirnos a un grupo de variables como un sola debido a un relaci&oacute;n existente entre ellas. Hasta ahora los &uacute;nicos grupos de variables que conocemos son los arrays, donde todas son del mismo tipo.</P>
+<OL>
+
+<LI><A NAME="_Ref365897946"><A NAME="_Ref365897951"><A NAME="_Toc365907255"><B>Declaraci&oacute;n de estructuras.</A></A></A></LI>
+</B><P>Las estructuras son un conjunto de variables que no deben ser, necesariamente, del mismo tipo. Estas variables se agrupan de esta manera debido a la existencia de una relaci&oacute;n entre ellas (ej: todos los datos referentes a un empleado). La forma de declarar una estructura es:</P>
+<P>&nbsp;</P>
+<P>&#9;struct [<I>nombre_tipo_dato</I>]{</P>
+<P>&#9;&#9;<I>declaraciones_miembros …</P>
+</I><P>&#9;}[<I>lista_variables…</I>];</P>
+<P>&nbsp;</P>
+<I><P>nombre_tipo_dato</I> y <I>lista_variables</I> son opcionales, se debe especificar al menos uno de ellos. <I>declaraciones_miembros</I> son varias declaraciones de variables. Se puede especificar cualquier tipo de datos en estas declaraciones, incluso otras estructuras. <I>lista_variables</I> es una lista de variables separadas por comas que se pueden definir (crear) aqu&iacute; mismo. El punto y coma del final es obligatorio.</P>
+<P>&nbsp;</P>
+<P>Al darle nombre a una estructura con nombre_tipo_dato, creamos un nuevo tipo de dato con el que podemos definir variables (normales, punteros, arrays…) de la misma manera que hacemos con los tipos de datos b&aacute;sicos.</P>
+<P>Ej:</P>
+<P>Definici&oacute;n del tipo de datos FECHA:</P>
+<P>struct FECHA{</P>
+<B><P>&#9;</B>int dia,mes,anno;</P>
+<P>}</P>
+<B><P>&nbsp;</P>
+</B><P>Declaraci&oacute;n de una variable del tipo de datos FECHA:</P>
+<P>struct FECHA var;</P>
+<P>&nbsp;</P>
+<P>Definici&oacute;n de un nuevo tipo de datos y adem&aacute;s declaraci&oacute;n de una variables y un puntero de ese tipo: </P>
+<P>struct DIRECCION{</P>
+<P>&#9;char calle[40];</P>
+<P>&#9;unsigned numero,piso;</P>
+<P>&#9;char letra;</P>
+<P>}casa, *ptr;</P>
+<P>&nbsp;</P>
+<P>En este &uacute;ltimo ejemplo si no especificasemos el nombre del tipo de datos DIRECCION simplemente definiriamos dos variables pero no podriamos crear m&aacute;s variables de este tipo al no haber definido un nuevo tipo de datos.</P>
+<LI><A NAME="_Toc365907256"><B>Acceso a los miembros de una estructura.</A></LI>
+</B><P>Las variables que se encuentran dentro de otra variable de tipo struct se llaman miembros. Para acceder a ellas la sintaxis es:</P>
+<P>&nbsp;</P>
+<P>&#9;<I>nombre_variable.miembro</P>
+<P>&nbsp;</P>
+</I><P>Tambi&eacute;n podemos querer acceder a la variable de una estructura referenciada por un puntero. Para ello la primera forma que se nos puede ocurrir puede ser:</P>
+<P>&nbsp;</P>
+<P>&#9;(*nombre_<I>puntero).miembro</P>
+<P>&nbsp;</P>
+</I><P>Ya que primero tomamos el valor del puntero con el asterisco y luego nos referimos al miembro con el punto. Esta forma es v&aacute;lida aunque muy poco usada. La forma normal de referirnos a esto es:</P>
+<P>&nbsp;</P>
+<P>&#9;<I>nombre_puntero-&gt;miembro</P>
+<P>&nbsp;</P>
+</I><P>Por ejemplo si definimos la estructura DIRECCION del ejemplo anterior, la variable casa y el puntero ptr:</P>
+<P>&nbsp;</P>
+<P>casa.calle es una cadena de 40 caracteres.</P>
+<P>casa.numero es un entero sin signo.</P>
+<P>&#9;</P>
+<P>Si ptr apunta a casa(ptr=&amp;casa;):</P>
+<P>&nbsp;</P>
+<P>*ptr es el valor de lo apuntado por ptr. O sea, casa.</P>
+<P>(*ptr).numero es el miembro numero de casa.</P>
+<P>ptr-&gt;numero lo mismo que el anterior pero de una forma m&aacute;s correcta.</P>
+<LI><A NAME="_Toc365907257"><B>Inicializaci&oacute;n de estructuras.</A></LI>
+</B><P>Las estructuras tambi&eacute;n se pueden inicializar de forma muy parecida a la de los arrays:</P>
+<P>&nbsp;</P>
+<P>struct DIRECCION var={"Torquemada",46,4,'C'};</P>
+<P>&nbsp;</P>
+<P>F&iacute;jate que pongo cada uno de los elementos en orden seg&uacute;n est&aacute;n delclarados en la definici&oacute;n de la estructura.</P>
+<LI><A NAME="_Toc365907258"><B>Paso de estructuras a funciones.</A></LI></OL>
+
+</B><P>Todo depende de lo que la funci&oacute;n necesite. Puede ser un miembro de una estructura o la estructura entera.</P>
+<P>&nbsp;</P>
+<P>Si es un miembro de la estructura miramos el tipo de dato de ese miembro y actuamos en consecuencia como si fuese una variable normal. Como ejemplo, usando la variable var anterior:</P>
+<P>&nbsp;</P>
+<P>void func(int num);</P>
+<P>&nbsp;</P>
+<P>void main(void)</P>
+<P>{</P>
+<P>/*var.numero es un entero y lo tratamos como tal.*/</P>
+<P>&#9;func(var.numero);</P>
+<P>}</P>
+<P>&nbsp;</P>
+<P>Si lo que queremos es pasarle toda la estructura la cosa es igual que con el resto de las variables (ver cap&iacute;tulo 6.5, Paso de par&aacute;metros a una funci&oacute;n.) y tendremos en cuenta la funci&oacute;n necesita o no modificar la variable. Aunque hay que tener en cuenta una cosa muy importante: El tama&ntilde;o de una de una variable del tipo struct puede llegar a ser MUY grande. Por ello cuando el tama&ntilde;o pase de aproximadamente cuatro bytes deberemos pasar la variable por referencia tenga o no la funci&oacute;n que modificar la variable (si no debe modificarla cuidado).</P>
+<P>Ej:</P>
+<P>void func1(struct DIRECCION dir);/*Se le pasa una copia de toda la variable (45 bytes).*/</P>
+<P>void func2(struct DIRECCION *pDir);/*Le pasamos un puntero a una variable de ese tipo (s&oacute;lo 2 o 4 bytes).*/</P>
+<P>&nbsp;</P>
+<P>Para llamar a estas dos funciones un ejemplo ser&iacute;a:</P>
+<P>&#9;func1(var);</P>
+<P>&#9;func2(&amp;var);</P>
+<LI><A NAME="_Toc365786900"><A NAME="_Toc365907259"><A NAME="_Toc366027135"><B><I><FONT FACE="Arial">Campos de bits.</A></A></A></LI>
+</B></I></FONT><P>A difererencia de la mayor&iacute;a de los lenguajes de computadoras, el lenguaje C tiene un m&eacute;todo</P>
+<P>incorporado para acceder a un bit individual dentro de un byte. Esto se puede hacer con</P>
+<P>los operadores de bits pero tambi&eacute;n se puede hacer con un tipo especial de estructura llamada campo de bits.</P>
+<P>&nbsp;</P>
+<P>La forma general de definici&oacute;n de un campo de bits es:</P>
+<P>&nbsp;</P>
+<P>struct nombre_estructura</P>
+<P>  {</P>
+<P>    tipo1 nombre1 : longitud1;</P>
+<P>    tipo2 nombre2 : longitud2;</P>
+<P>    ...</P>
+<P>  };</P>
+<P>&nbsp;</P>
+<P>Un campo de bits tiene que declararse como int, unsigned, o signed. Los campos de bits de</P>
+<P>longitud 1 deben declararse como unsigned debido a que un bit individual no puede tener</P>
+<P>signo. Los nombres de los campos son opcionales.</P>
+<P>&nbsp;</P>
+<P>struct operacion</P>
+<P>  {</P>
+<P>    unsigned leer: 1;</P>
+<P>    unsigned escribir: 1;</P>
+<P>    unsigned abrir: 1;</P>
+<P>    unsigned cerrar: 1;</P>
+<P>    unsigned: 2;</P>
+<P>    unsigned error: 1;</P>
+<P>  } operacion_fichero;</P>
+<P>&nbsp;</P>
+<P>A los campos de bits se accede de la misma forma quea los campos de cualquier</P>
+<P>estructura:</P>
+<P>&nbsp;</P>
+<P>operacion_fichero.abrir = 1;</P>
+<P>&nbsp;</P>
+<P>Los campos de bits tienen algunas restricciones: no se puede tomar la direcci&oacute;n de una variable de campos de bits; en algunas m&aacute;quinas, los campos se disponen de izquierda a derecha y en otras de derecha a izquierda, esto implica c&oacute;digo menos portable.</P>
+<P>&nbsp;</P>
+<P>Se puede mezclar elementos normales de estructura con elementos de campos de bits. Por ejemplo:</P>
+<P>&nbsp;</P>
+<P>  struct st</P>
+<P>    {</P>
+<P>      char ch;</P>
+<P>      unsigned c1: 1;</P>
+<P>      unsigned c2: 3;</P>
+<P>    };</P>
+<P>&nbsp;</P>
+<P>El tama&ntilde;o de esta estructura, sizeof (struct st), es 2: 1 byte para ch y 1 byte para c1 y c2.</P>
+<LI><A NAME="_Toc365786901"><A NAME="_Toc365907260"><A NAME="_Toc366027136"><B><I><FONT FACE="Arial">Uniones (union).</A></A></A></LI>
+</B></I></FONT><P>El uso de esta palabra reservada es similar a el de <I>struct</I> a diferencia que <I>union</I> nos permite definir variables que compartir&aacute;n la misma posici&oacute;n de memoria. En otras palabras, nos permite referirnos a una misma posici&oacute;n de formas diferentes (como un car&aacute;cter, como un entero, como una estructura… etc). La sintaxis es:</P>
+<P>&nbsp;</P>
+<P>&#9;union [nombre_tipo_dato]{</P>
+<P>&#9;&#9;<I>declaracion_variables…</P>
+</I><P>&#9;}[<I>lista_variables…</I>]<I>;</P>
+<P>&nbsp;</P>
+</I><P>Como cuando se explic&oacute; <I>struct</I>, lo que va entre corchetes es opcional (tampoco se ponen los corchetes cuando se incluye) y se debe especificar al menos uno de ellos. d<I>eclaracion_variables</I> es una serie de declaraciones de variables que compartir&aacute;n la misma posici&oacute;n de memoria. La forma de declararlas es igual que en <I>struct</I>.</P>
+<P>Ej:</P>
+<P>&#9;union LARGO{</P>
+<P>&#9;&#9;long num;</P>
+<P>&#9;&#9;char byte[4];</P>
+<P>&#9;}var;</P>
+<P>&nbsp;</P>
+<P>Ahora var ser&aacute; una variable del tipo union LARGO. Ahora podemos referirnos a esa posici&oacute;n de dos formas diferentes:</P>
+<P>&nbsp;</P>
+<P>&#9;/*A toda la extensi&oacute;n de la variable, como un entero largo.*/</P>
+<P>&#9;var.num;</P>
+<P>&#9;/*Y a un solo byte de la variable como un car&aacute;cter.*/</P>
+<P>&#9;var.byte[2]</P>
+<LI><A NAME="_Toc365786902"><A NAME="_Toc365907261"><A NAME="_Toc366027137"><B><I><FONT FACE="Arial">Enumeraciones (enum).</A></A></A></LI>
+</B></I></FONT><P>Una enumeraci&oacute;n es un conjunto de constantes enteras con nombre que especifica todos los valores v&aacute;lidos que una variable de ese tipo puede tomar.</P>
+<P>&nbsp;</P>
+<P>La forma general de declaraci&oacute;n es:</P>
+<P>  enum nombre_tipo_enum { lista_de_enumeracion } lista_variables; Aqu&iacute;, al igual que con las estructuras, tanto el nombre de la enumeraci&oacute;n nombre_tipo_enum como lista_variables son opcionales.</P>
+<P>&nbsp;</P>
+<P>Ejemplo:</P>
+<P>&nbsp;</P>
+<P>enum colores { azul, rojo, amarillo };</P>
+<P>enum colores color;</P>
+<P>&nbsp;</P>
+<P>Dada esta declaraci&oacute;n y definici&oacute;n la variable color s&oacute;lo puede tomar tres valores posibles: azul, rojo o amarillo.</P>
+<P>&nbsp;</P>
+<P> Ejemplo:</P>
+<P>&nbsp;</P>
+<P>color = rojo;</P>
+<P>if (color == azul)</P>
+<P>printf ("el color es azul");</P>
+<P>&nbsp;</P>
+<P>Cada uno de los s&iacute;mblos del conjunto de enumeraci&oacute;n es un valor entero, tomando el primero el valor 0, el segundo el valor 1 y as&iacute; sucesivamente.</P>
+<P>&nbsp;</P>
+<P>Ejemplo:</P>
+<P>&nbsp;</P>
+<P>printf ("%d %d %d", azul, rojo, amarillo); /* muestra «0 1 2» */</P>
+<P>&nbsp;</P>
+<P>Podr&iacute;amos haber dado otros valores num&eacute;ricos a los s&iacute;mbolos si hubi&eacute;semos declarado colores, por ejemplo, del siguiente modo:</P>
+<P>&nbsp;</P>
+<P>enum colores { azul, rojo = 10, amarillo };</P>
+<P>&nbsp;</P>
+<P>Ahora la sentencia printf anterior mostrar&iacute;a «0 10 11». Como se ve, los s&iacute;mbolos no inicializados toman el valor num&eacute;rico siguiente al del s&iacute;mbolo anterior, excepto el primero que toma el valor 0 si no es inicializado.</P>
+<LI><A NAME="_Toc365786903"><A NAME="_Toc365907262"><A NAME="_Toc366027138"><B><I><FONT FACE="Arial">Tipos definidos por el usuario (typedef).</A></A></A></LI></OL>
+
+</B></I></FONT><P>Esta palabra reservada sirve para asignar un nombre a una combinaci&oacute;n de tipos de datos ya existente. La sintaxis es:</P>
+<P>&nbsp;</P>
+<P>&#9;typedef <I>tipo nombre_nuevo</I>;</P>
+<P>&nbsp;</P>
+<I><P>tipo </I>puede ser cualquier combinaci&oacute;n de los tipos de datos ya existentes, sean estos b&aacute;sicos o alguno anteriormente creado. Por ejemplo:</P>
+<P>&nbsp;</P>
+<P>&#9;typedef unsigned long ulong;</P>
+<P>&#9;typedef char* pChar;</P>
+<P>&nbsp;</P>
+<P>Esta sentencia le asigna a la combinaci&oacute;n unsigned long el nombre ulong y char* a pChar. A partir de aqu&iacute; cualquier referencia al identificador ulong es lo mismo que poner unsigned long y cualquiera a pChar es lo mismo que poner char*.</P>
+<P>&nbsp;</P>
+<P>&#9;ulong num;/*num es del tipo unsigned long.*/</P>
+<P>&#9;pChar pc;/*pc es un puntero a caracteres.*/</P>
+<P>&nbsp;</P>
+<P>Un uso muy habitual es el de combinar las palabras reservadas typede y struct para no tener que volver a utilizar la palabra struct cada vez que queramos referirno al tipo de datos que creamos. Por ejemplo, en la definici&oacute;n de la estructura DIRECCION de la secci&oacute;n 9.1.1:</P>
+<P>&nbsp;</P>
+<P>typedef struct{</P>
+<P>&#9;char calle[40];</P>
+<P>&#9;unsigned numero,piso;</P>
+<P>&#9;char letra;</P>
+<P>}DIRECCION;</P>
+<P>/*Declaramos una variable de este tipo. Ahora ya no necesitamos poner <I>struct</I>.*/</P>
+<P>DIRECCION var;</P>
+<P>&nbsp;</P>
+<LI><A NAME="_Toc365786904"><A NAME="_Ref365873487"><A NAME="_Ref365873492"><A NAME="_Toc365907263"><A NAME="_Toc366027139"><FONT FACE="Arial" SIZE=4>Entrada y Salida (E/S). Ficheros.</A></A></A></A></A></LI>
+<OL>
+
+<LI><A NAME="_Toc365786905"><A NAME="_Toc365907264"><A NAME="_Toc366027140"></FONT><B><I><FONT FACE="Arial">Entrada y salida est&aacute;ndar.</A></A></A></LI>
+</B></I></FONT><P>Cuando hablamos de E/S est&aacute;ndar nos referimos a los ya nombrados stdin, stdout… que como y dijimos pueden ser redireccionados desde el DOS o por diferentes funciones del C.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786906"><A NAME="_Toc365907265"><A NAME="_Toc366027141"><I><FONT FACE="Arial">Flujos y ficheros.</A></A></A></LI>
+</B></I></FONT><P>Un flujo es un canal o sucesi&oacute;n de caracteres a trav&eacute;s de los que se realizan las operaciones de entrada y salida. Todo fichero manipulado con los m&eacute;todos de E/S enstandar tiene su respectivo flujo relacionado. Para el programador todos los flujos son iguales. Es por ello que, al utilizar flujos tanto para ficheros en disco como terminales y otros dispositivos podemos abstraernos y trabajar igual con todos ellos. A partir de ahora nos referiremos a tanto a flujos como ficheros para indicar lo mismo y como archivo para indicar un fichero de disco. Como ejemplo las funciones de stdio.h de E/S por pantalla que en realidad son las mismas descritas proximamente para ficheros. La diferencia es que aquellas usan siempre los flujos stdout, stdin… y en estas nosotros indicamos el flujo.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786907"><A NAME="_Toc365907266"><A NAME="_Toc366027142"><I><FONT FACE="Arial">Tipos de flujos: flujos de texto y flujos binarios.</A></A></A></LI>
+</B></I></FONT><P>Hay una diferencia muy importante entre ficheros de texto y binarios. En un <U>fichero de texto</U> las funciones del C convierten el car&aacute;cter de nueva l&iacute;nea en dos car&aacute;cteres (retorno de carro + car&aacute;cter de nueva l&iacute;nea). Adem&aacute;s, el valor ASCII 26 (End of file, EOF) se toma como fin de fichero. As&iacute; a llegar este caracter se toma como final del fichero. En estos ficheros puede no haber una correspondencia de uno a uno en los caracteres leidos y escritos. En los <U>ficheros binarios</U> no hay conversi&oacute;n de ning&uacute;n tipo y los caracteres se leen y escriben tal cual est&aacute;n. Adem&aacute;s el pueden haber tantos valores ASCII 26 como se quiera que no se tomar&aacute;n como fin de fichero.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786909"><A NAME="_Ref365874093"><A NAME="_Ref365874098"><A NAME="_Toc365907267"><A NAME="_Toc366027143"><I><FONT FACE="Arial">Pasos a realizar para manipular un fichero: declarar variable de fichero, abrirlo, operar con &eacute;l y cerrarlo. Estructura FILE.</A></A></A></A></A></LI>
+</B></I></FONT><P>Estos pasos se debe de realizar siempre que se quiera usar un fichero mediante la E/S estandar en C. Son los siguientes.</P>
+<P>&nbsp;</P>
+<U><P>-Declarar</U> un variable de tipo puntero a fichero (FILE*) que se&ntilde;ala hacia una estructura interna que se refiere al fichero. Ej:&#9;FILE *fich;</P>
+<P>&nbsp;</P>
+<U><P>-Abrir</U> el fichero mediante la funci&oacute;n fopen. Su declaraci&oacute;n es:</P>
+<P>&nbsp;</P>
+<I><P>&#9;<FONT FACE="MorseCode">&#168;</FONT>
+FILE *fopen(char *nombre_fichero, char *modo);</P>
+</I><P>&nbsp;</P>
+<P>Donde nombre_fichero es el nombre del fichero a abrir y modo es una cadena que &iacute;ndica la forma en que se quiere abrir el fichero, puede ser una de las siguientes:</P>
+<B><P>&nbsp;</P></B>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=519>
+<TR><TD WIDTH="11%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>MODO</B></TD>
+<TD WIDTH="89%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>INTERPRETACI&Oacute;N</B></TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>&quot;r&quot;</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Abrir s&oacute;lo para lectura.</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>&quot;w&quot;</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Crear para escritura. Si el fichero ya existe ser&aacute; machacado.</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>&quot;a&quot;</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>A&ntilde;adir. Abre para escribir al final del fichero, o crear para escritura si el fichero no existe.</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>&quot;r+&quot;</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Abre para actualizaci&oacute;n. Esto es, lectura y escritura.</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>&quot;w+&quot;</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Crea un nuevo fichero para actualizaci&oacute;n. Si el fichero ya existe es machacado.</TD>
+</TR>
+<TR><TD WIDTH="11%" VALIGN="TOP">
+<P>&quot;a+&quot;</TD>
+<TD WIDTH="89%" VALIGN="TOP">
+<P>Abre para actualizaci&oacute;n al final del fichero o crea el archivo si este no existe.</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<B><P>&nbsp;</P>
+</B><P>Para especificar especificar el modo de operaci&oacute;n de texto se a&ntilde;ade una t al final de la cadena de modo (&quot;rt&quot;,&quot;w+t&quot;,&quot;wt+…). Para indicar binario se a&ntilde;ade una b. Si no se a&ntilde;ade ninguno de estos valores el modo es governado por la variable global <I>_fmode</I> que puede ser O_BINARY u O_TEXT. Estas constantes est&aacute;n definidas en fcntl.h.</P>
+<P>&nbsp;</P>
+<P>Valor de retorno: fopen devuelve NULL si hubo un error. El c&oacute;digo de error se encuentra almacenado en la variable <I>errno </I>(definida en errno.h). Est&aacute; variable es utilizada por muchas funciones (sobre todo de stdio) para almacenar el c&oacute;digo de error de la &uacute;ltima operaci&oacute;n realizada. Hay definidas varias nombres nem&oacute;nicos para cada n&uacute;mero de error (en errno.h). Existe tambi&eacute;n el array de cadenas <I>sys_errlist</I> definido en stdlib.h que contiene el significado de cada n&uacute;mero de error (pero en ingl&eacute;s, claro).</P>
+<P>&nbsp;</P>
+<P>Por otro lado si fopen pudo abrir el fichero sin problemas, devuelve un puntero a una estructura FILE con el que tendremos que referirnos al fichero, es por ello que todas la funciones relacionadas con ficheros reciben un puntero a esta estructura que indica el fichero con que se quiere trabajar.</P>
+<P>&nbsp;</P>
+<P>-Llegado a este punto ya podemos <U>operar</U> con el fichero. O sea, leer, escribir… etc.</P>
+<P>&nbsp;</P>
+<P>-Por &uacute;ltimo, y no menos importante, tendremos que <U>cerrar</U> el fichero con la funci&oacute;n fclose. Cerrar el fichero es muy importante ya que mientras que el mismo est&aacute; abierto se mantienen una zona de almacenamiento intermedio (bufer) en memoria parar acelerar el acceso a la informaci&oacute;n del fichero. Si no lo cerramos corremos el riesgo de perder esta informaci&oacute;n intermedia que todav&iacute;a no ha sida escrita a disco y de no liberar estas zonas de memoria. Adem&aacute;s en el DOS hay un n&uacute;mero m&aacute;ximo de ficheros que se pueden abrir. Para cerrar un flujo utilizamos fclose pas&aacute;ndole en nombre del flujo.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fclose(FILE *fichero);</P>
+</I><P>&nbsp;</P>
+<P>Ej:</P>
+<P>&nbsp;</P>
+<P>FILE *fi1;</P>
+<P>&nbsp;</P>
+<P>&#9;fil=fopen(&quot;Fichero.x&quot;,&quot;rb+&quot;);</P>
+<P>&#9;if(fi1==NULL){</P>
+<P>&#9;&#9;puts(&quot;Error abriendo fichero&quot;);</P>
+<P>&#9;&#9;exit(1);</P>
+<P>&#9;}</P>
+<P>&#9;...</P>
+<P>&nbsp;</P>
+<B><P>&#9;</B>fclose(fi1);</P>
+<P>&nbsp;</P>
+<P>Hay tambi&eacute;n otra funci&oacute;n <U>fcloseall</U>, la cual cierra todos los flujos abiertos excepto los predefinidos (stdin, stdout, stdprn, stderr y stdaux). Su forma es:</P>
+<P>&nbsp;</P>
+<P>&#9;<FONT FACE="MorseCode">&#168;</FONT>
+<I>int fcloseall(void);</P>
+</I><P>&nbsp;</P>
+<P>Devuelve en n&uacute;mero total de flujos cerrados o EOF si ha habido error.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786910"><A NAME="_Toc365907268"><A NAME="_Toc366027144"><I><FONT FACE="Arial">Estudio de las funciones m&aacute;s frecuentes de stdio.h.</A></A></A></LI>
+</B></I></FONT><P>Para cada fichero abierto es mantenido una especie de ‘puntero’ de lectura/escritura que nos &iacute;ndica el lugar del fichero donde se realizar&aacute; la siguiente operaci&oacute;n. Este puntero no es m&aacute;s que un n&uacute;mero indicando el desplazamiento actual contando desde el principio del fichero. Hay que indicar tambi&eacute;n que todas estas funciones act&uacute;an sobre la variable global de error ‘errno’.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int feof(FILE *flujo);</P>
+<P>&nbsp;</P>
+</I><P>Devuelve un valor verdadero s&oacute;lo si el puntero del E/S ha llegado al final del fichero (End Of File, EOF).</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int ferror(FILE *flujo);</P>
+<P>&nbsp;</P>
+</I><P>Devuelve verdadero si el indicador de error para dicho fichero est&aacute; activo.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void clearerr(FILE *flujo);</P>
+<P>&nbsp;</P>
+</I><P>Reset&eacute;a el indicador de error del fichero y el indicador EOF. Una vez que se activa el indicador de error de un fichero, las siguientes operaciones continuar&aacute;n devolviendo el error hasta que se llame a clearerr o a rewind.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void rewind(FILE *flujo);</P>
+<P>&nbsp;</P>
+</I><P>Hace lo mismo que clearerr y adem&aacute;s pone el puntero de E/S al principio del fichero.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fseek(FILE *flujo, long desplazamiento, int dedonde);</P>
+</I><P>&nbsp;</P>
+<P>Coloca el puntero de E/S en la nueva posici&oacute;n <I>desplazamiento</I> tomando como referencia para este desplazamiento el indicado por <I>dedonde</I> que puede ser uno de los siguientes valores:</P>
+<P>&nbsp;</P>
+<I><P>dedonde</I>        ; Lugar del fichero</P>
+<P>---------------&Iuml;------------------------------</P>
+<P>SEEK_SET   (0) ; Principio del fichero</P>
+<P>SEEK_CUR   (1) ; Desde la posici&oacute;n actual</P>
+<P>SEEK_END   (2) ; Desde el final del fichero</P>
+<P>&nbsp;</P>
+<P>Un valor negativo en offset indica un movimiento relativo hacia el principo del fichero, un valor positivo hacia el final. </P>
+<P>&nbsp;</P>
+<P>fseek devuelve 0 si el puntero se modifica con &eacute;xito. Devuelve otro verdadero si hubo un error aunque esto no es muy fiable: fseek s&oacute;lo muestra error al manipular un archivo o dispositivo sin abrir.</P>
+<P>Ej:</P>
+<P>/*Coloca el ptro al principio del fichero.*/</P>
+<P>fseek(fich, 0, SEEK_SET);</P>
+<P>/*Lo pone al final.*/</P>
+<P>fseek(fich, 0, SEEK_END);</P>
+<P>/*Mover 15 bytes hacia el final.*/</P>
+<P>fseek(fich, 15, SEEK_CUR);</P>
+<P>/*Mover 7 bytes hacia el principio.*/</P>
+<P>fseek(fich, -7, SEEK_CUR);</P>
+<P>/*Ponerlo en el antepen&uacute;ltimo byte del fichero.*/<BR>
+fseek(fich, -2, SEEK_END);</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+long ftell(FILE *flujo);</P>
+</I><P>&nbsp;</P>
+<P>Devuelve el puntero de E/S. Este valor es el desplazamiento, en bytes, relativo al principio del fichero. Si hay error devuelve -1L y coloca el n&uacute;mero de error en errno.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fileno(FILE *flujo);</P>
+<P>&nbsp;</P>
+</I><P>Esta funci&oacute;n nos da un descriptor de fichero a modo de las funciones de ficheros tipo UNIX. Se suele utilizar junto a chsize (en io.h) para cambiar el tama&ntilde;o de un fichero.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void perror(const char *mensaje);</P>
+<P>&nbsp;</P>
+</I><P>Muestra en stderr el mensaje de error correspondiente al valor actual de errno. El formato es:</P>
+<P>&#9;num_error: <I>mensaje</P>
+</I><P>&nbsp;</P>
+<P>msg_error corresponde a la entrada en el array sys_errlist (en stdlib.h) de &iacute;ndice errno.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int remove(const char *nombre_archivo);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int unlink(const char * nombre_archivo);</P>
+<P>&nbsp;</P>
+</I><P>Las dos hacen lo mismo (remove es una macro de unlink). Borran un archivo. No puede borrar archivos de s&oacute;lo lectura, para borrar uno de estos archivos se debe cambiar primero el atributo de s&oacute;lo lectura. Debes asegurarte de que el archivo no est&eacute; abierto cuando sea borrado.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int rename(const char *nombre_viejo, const char *nombre_nuevo);</P>
+<P>&nbsp;</P>
+</I><P>Cambia el nombre de un archivo de <I>nombre_viejo</I> a <I>nombre_nuevo</I>. Se puede especificar tambi&eacute;n directorios, as&iacute; rename puede utilizarse para mover con rapidez archivos entre directorios. Si se especifica la unidad de disco, la de los dos par&aacute;metros debe ser la misma, rename no se puede usar para mover un archivo de una unidad a otra. Devuelve 0 si todo bien y -1 si error modificando errno.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+char *tmpnam(char *buf_nombre);</P>
+<P>&nbsp;</P>
+</I><P>Crea un nombre de archivo que no exista actualmente en el directorio, este puede ser usado como el nombre de un archivo temporal. Esta funci&oacute;n s&oacute;lo da el nombre de un archivo inexistente. Es responsabilidad del programador el crear, abrir, cerrar y destruir el fichero.</P>
+<P>&nbsp;</P>
+<P>Hay varias funciones de lectura y escritura similares a la usadas para la E/S por pantalla (Cap&iacute;tulo 6.5 Funciones de entrada y salida (E/S) est&aacute;ndar: printf, scanf, putchar, getchar, puts y gets.). Su uso es muy parecido con la excepci&oacute;n de poseer un par&aacute;metro adicional indicando el fichero (FILE*). </P>
+<P>&nbsp;</P>
+<P>Las siguientes cuatro funciones suelen ser frecuentes en el uso de archivos de texto:</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fprintf(FILE *flujo, const char *formato[, argumento,…</I>]);</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fscanf(FILE *flujo, const char *formato[, direcci&oacute;n,…</I>]);</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fputs(const char *s, FILE *flujo);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *fgets(char *s, int n, FILE *flujo);</P>
+</I><P>&nbsp;</P>
+<P>Las siguientes cuatro se suelen utilizar indistintamente con flujos de texto como con binarios:</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fputc(int c, FILE* flujo);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int putc(int c, FILE *flujo);</I>/*Macro.*/</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int fgetc(FILE *flujo);</I>/*Funci&oacute;n.*/</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int getc(FILE *flujo);</I>/*Macro.*/</P>
+<I><P>&nbsp;</P>
+</I><P>El uso de las siguientes cuatro funciones es m&aacute;s frecuente con ficheros binarios:</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int getw(FILE *flujo);</P>
+<P>&nbsp;</P>
+</I><P>Pone el pr&oacute;ximo entero del flujo. No debe ser usado con ficheros en modo texto. Devueve EOF en error. Devido a que EOF puede ser un entero v&aacute;lido debe de chequearse feof o ferror para saber si realmente a ocurrido un error.</P>
+<B><P>&nbsp;</P>
+</B><I><P><FONT FACE="MorseCode">&#168;</FONT>
+int putw(int w,FILE *flujo);</P>
+</I><B><P>&nbsp;</P>
+</B><P>Ponde el entero w en flujo. Pasa lo mismo con getw, se debe chequear feof o ferror.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+ size_t fread(void *ptr, size_t tama&ntilde;o, size_t n, FILE *flujo);</P>
+</I><B><P>&nbsp;</P>
+</B><P>Le&eacute; n elementos de tama&ntilde;o <I>tama&ntilde;o</I> en bytes desde en <I>flujo</I> y los pone en la direcci&oacute;n marcada por <I>ptr</I>. El n&uacute;mero total de bytes leidos es de n * size. Si todo va bien devuelve el n&uacute;mero de elementos (no de bytes) leidos. Devuelve un n&uacute;mero menor que n (puede ser 0) en EOF o error.</P>
+<B><P>&nbsp;</P>
+</B><I><P><FONT FACE="MorseCode">&#168;</FONT>
+ size_t fwrite(void *ptr, size_t tama&ntilde;o, size_t n, FILE *flujo);</P>
+</I><B><P>&nbsp;</P>
+</B><P>Igual que fdread pero en vez de leer, escribe la informaci&oacute;n apuntada por <I>ptr</I> en el flujo flujo.</P>
+<P>&nbsp;</P>
+<P>Dos funciones de stdio.h &uacute;tiles al formatear datos para su posterior proceso son:</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+int sprintf(char *bufer, const char *formato[, argumento, …]);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int sscanf(char *bufer, const char *formato [, direcci&oacute;n, …]);</P>
+</I><B><P>&nbsp;</P>
+</B><P>Ambas hacen funcionan igual que sus om&oacute;nimas printf y scanf. La diferencia est&aacute; en que estas dos funciones en vez de trabajar con los flujos stdout y stdin act&uacute;an con posiciones de memoria.</P>
+<P>Ej:</P>
+<P>char buf[30];</P>
+<P>int i=9;</P>
+<P>float pi=3.14;</P>
+<P>&nbsp;</P>
+<P>&#9;sprintf(buf,&quot;i=%i. pi=%f.&quot;, i, pi);</P>
+<B><P>&nbsp;</P>
+</B><P>En esta porci&oacute;n de c&oacute;digo se copia en buf la cadena</P>
+<P>&quot;i=9. pi=3.14.&quot;.</P>
+<P>&nbsp;</P>
+<P>sscanf act&uacute;a igual que scanf pero toma los valores en vez desde el teclado desde la posici&oacute;n de memoria indicada por buffer.</P>
+<B><P>&nbsp;</P>
+<LI><A NAME="_Toc365786911"><A NAME="_Toc365907269"><A NAME="_Toc366027145"><I><FONT FACE="Arial">Sistema de ficheros tipo UNIX (io.h).</A></A></A></LI>
+</B></FONT><P><FONT FACE="MorseCode">&#168;</FONT>
+int chsize(int manejador, long nuevo_tama&ntilde;o);</P>
+<P>&nbsp;</P>
+</I><P>Cambia el tama&ntilde;o del archivo se&ntilde;alado por <I>manejador</I> al tama&ntilde;o <I>nuevo_tama&ntilde;o</I> en bytes. Si se est&aacute;n utilizando las funciones de stdio.h se debe usar la funci&oacute;n fileno de stdio.h para encontrar el manejador correspondiente.</P>
+<LI><A NAME="_Toc365786913"><A NAME="_Toc365786912"><A NAME="_Toc365907270"><A NAME="_Toc365908616"><A NAME="_Toc366027146"><B><I><FONT FACE="Arial">Estructuras de ficheros.</A></A></A></A></LI></OL>
+</OL>
+
+</B></I></FONT><P>Este tema no est&aacute; s&oacute;lo relacionado con el C si no con la programaci&oacute;n en general sea en el lenguaje que sea.</P>
+<P>&nbsp;</P>
+<P>Hay muchos tipos de ficheros seg&uacute;n la disposici&oacute;n de los datos almacenados en ellos. La anterior distinci&oacute;n hecha entre ficheros binarios y de texto se refer&iacute;a al modo en que se le&iacute;a o escrib&iacute;a esta informaci&oacute;n (con conversiones en los de texto y literalmente en los binarios).</P>
+<P>&nbsp;</P>
+<P>En cuanto a la disposici&oacute;n de la informaci&oacute;n en un fichero t&iacute;pico de <U>texto</U> decir que es una sucesi&oacute;n de cadenas de texto ASCII separadas por un car&aacute;cter de nueva linea (ASCII 13, ‘\n’) y tambi&eacute;n puede tener despu&eacute;s de este un retorno de carro (ASCII 10, ‘\r’). El fichero suele terminar con un car&aacute;cter de fin de fichero.</P>
+<P>&nbsp;</P>
+<P>Cuando se quiere guardar varios datos del mismo tipo normalmente se usan <U>ficheros aleatorios</U>. Estos simplemente constan de una sucesi&oacute;n de <I>registros</I> del mismo tama&ntilde;o. Llamamos registro a cada unidad de datos relacionados (ej: una estructura donde guardemos los datos relacionados con un empleado). Cada uno de estos registros consta de varios <I>campos</I> (los miembros de una struct en C). Normalmente s&oacute;lo almacenaremos un registro en memoria, aqu&iacute; leeremos los datos y/o los modificaremos para luego escribirlos en el fichero. Este tipo de ficheros no suele encontrarse ordenado ya que a medida que introducimos nuevos registros estos se a&ntilde;aden al del &uacute;ltimo. Es por esto que se habla de ficheros <U>aleatorios secuenciales</U> ya que en este tipo de ficheros si queremos mostrar toda la informaci&oacute;n tendremos que leer todos los registros uno a uno comenzando desde el principio. Una forma m&aacute;s completa de este tipo de ficheros es la de aquellos con una estructura al principio que muestra cierta informaci&oacute;n relacionada con los datos del archivo (Ej: n&uacute;mero de registros, posici&oacute;n donde comienza el primer registro, tama&ntilde;o de cada registro… etc). A esta estructura se le llama cabecera (Header). El &uacute;nico campo cr&iacute;tico al incluir esta cabecera es el que indica el comienzo del primer registro (los datos &uacute;tiles). Ciertamente la inclusi&oacute;n de cabeceras es normal en todo tipo de ficheros de datos.</P>
+<P>&nbsp;</P>
+<P>Los pasos al <U>escribir</U> un registro en un nuevo resgistro en un fichero secuencial aleatorio son:</P>
+<P>&nbsp;</P>
+<OL>
+
+<LI>Posicionar el puntero del fichero de datos despu&eacute;s del &uacute;ltimo registro de datos, esto normalmente ser&aacute; al final del fichero. Ej: fseek(fDat,0,SEEK_END);</LI>
+<LI>Escribir el nuevo registro de datos.</LI></OL>
+
+<P>&nbsp;</P>
+<P>Paral <U>leer</U> un registro correspondiente al valor de un campo:</P>
+<P>&nbsp;</P>
+<OL>
+
+<LI>Posicionar el puntero del fichero de datos al principio del primer registro de datos. Ej: fseek(fDat,sizeof(CABECERA),SEEK_SET);</LI>
+<LI>Leer el siguiente registro.</LI>
+<LI>Si el campo al que no referimos del registro leido es igual que el que queremos mostrar/listar… si no ignorar.</LI>
+<LI>Repetir pasos 2 y 3 mientras no sea fin de fichero.</LI></OL>
+
+<P>&nbsp;</P>
+<P>Para <U>borrar</U> un registro aleatoria que corresponda a un determinado valor de un campo:</P>
+<P>&nbsp;</P>
+<OL>
+
+<LI>Buscar el registro que cumpla la condici&oacute;n de busqueda con el algoritmo anterior.</LI>
+<LI>Para cada fichero que cumpla la condici&oacute;n de busqueda pedir confirmaci&oacute;n de borrado.</LI>
+<LI>Si hay que borrarlo mover todos los registros posterirores un registro hacia arriba y disminuir el tama&ntilde;o del fichero en un registro.</LI></OL>
+
+<P>&nbsp;</P>
+<P>Una extensi&oacute;n de los ficheros aleatorios son los sistemas de <U>ficheros secuenciales indexados</U> o simplemente ficheros indexados. Estan compuestos de un fichero y varios ficheros de &iacute;ndices (uno por cada campo que se quiera indexar). Cada uno de los ficheros indexados es un fichero aleatorio donde cada registro contiene un n&uacute;mero (generalmente un largo sin signo) que hace referencia a la posici&oacute;n de su correspondiente registro en el fichero de datos. Opcionalmente, cada registro tambi&eacute;n puede contener una copia de parte o todo el campo del registro de datos a que hace referencia (campo clave). Esto &uacute;ltimo hace los ficheros de &iacute;ndices m&aacute;s grandes pero tambi&eacute;n m&aacute;s r&aacute;pidos de procesar. Estos registros &iacute;ndices est&aacute;n ordenados seg&uacute;n los valores del miembro de los registros de datos a que hacen referencia. </P>
+<P>&nbsp;</P>
+<P>As&iacute;, al <U>escribir</U> un nuevo registro los pasos a seguir ser&aacute;n:</P>
+<P>&nbsp;</P>
+<OL>
+
+<LI>Posicionar el puntero del fichero de datos despu&eacute;s del &uacute;ltimo registro de datos, esto normalmente ser&aacute; al final del fichero. Ej: fseek(fDat,0,SEEK_END);</LI>
+<P>&nbsp;</P>
+<LI>Guardar en una variable el n&uacute;mero de registro de dato que vamos a escribir. O sea, la posici&oacute;n en el fichero de datos de dicho registro. Ej: pos=(ftell(fDat)-sizeof(CABDAT))/sizeof(DATOS); (Donde CABDAT es la estructura de cabecera del fichero de datos y DATOS es la estructura donde se guardan los datos).</LI>
+<P>&nbsp;</P>
+<LI>Escribir la nueva informaci&oacute;n en el fichero de datos. Ej: ret=fwrite(&amp;DATOS,sizeof(DATOS),1,fDat);</LI>
+<P>&nbsp;</P>
+<LI>Los siguientes pasos se repetir&aacute;n para cada uno de los ficheros de &iacute;ndices.</LI>
+<OL>
+
+<LI>Posicionar el puntero del fichero de &iacute;ndices en el primer registro (revobinar). Ej:fseek(fDat,sizeof(CABIDX),SEEK_SET);</LI>
+<LI>Leer el registro de &iacute;ndices y comparar la clave de datos asosiada con este registro (que puede estar en este mismo registro si la guardamos as&iacute; o que tendremos que leer el registro de datos de la posici&oacute;n que indique el &iacute;ndice).</LI>
+<LI>Si la clave del registro nuevo es menor que la del que acabamos de leer insertamos aqu&iacute; el nuevo registro de &iacute;ndice, desplazando este &uacute;ltimo leido y el resto, un registro hacia a abajo.</LI>
+<LI>Repetir los pasos 4.2 y 4.3 mientras no se inserte la nueva clave y no se llege al final del fichero de &iacute;ndices.</LI>
+<LI>Si se llega al final del fichero y no se ha insertado todav&iacute;a el nuevo &iacute;ndice, a&ntilde;adirlo al final del fichero de &iacute;ndices.</LI></OL>
+</OL>
+
+<P>&nbsp;</P>
+<P>An&aacute;logamente, para <U>leer o buscar</U> un determinado registro en un sistema de ficheros &iacute;ndexados:</P>
+<P>&nbsp;</P>
+<OL>
+
+<LI>Revobinar el fichero de &iacute;ndices asociado con el campo seg&uacute;n queremos buscar.</LI>
+<LI>Leer un registro &iacute;ndice y la clave asociada con &eacute;l (el miembro del registro asociado con &eacute;l o el campo clave del registro &iacute;ndice si lo hubiese).</LI>
+<LI>Si la clave cumple la condici&oacute;n de busqueda (Ej: que sea mayor que un determinado valor, que sea igual a algo…) leer (si no se ha hecho ya) el registro de datos asociado con este &iacute;ndice.</LI></OL>
+
+<P>&nbsp;</P>
+<P>Haste la idea que en los ficheros &iacute;ndice est&aacute;n ordenados los registros del fichero de datos pero seg&uacute;n el orden de uno de sus miembros.</P>
+<P>&nbsp;</P>
+<P>Finalmente para <U>borrar</U> lo &uacute;nico que tenemos que hacer es:</P>
+<P>&nbsp;</P>
+<OL>
+
+<LI>Buscar el registro a borrar en el sistema de la forma descrita anteriormente.</LI>
+<LI>Serciorarse que es el registro que queremos borrar (comparando todos los datos que tengamos de &eacute;l).</LI>
+<LI>Eliminar, de cada uno de los fichero de &iacute;ndices, el &iacute;ndice asociado con este registro de datos.</LI></OL>
+
+<P>&nbsp;</P>
+<P>Fijate que realmente el registro de datos no se borra. Lo que pasa es que al eliminarse de todos los &iacute;ndices es ignorado por cualquiera de las operaciones anteriores. Es por esto que muchos sistemas tienen las opciones de recuperar datos perdidos (buscando registros de datos que no tengan &iacute;ndices asociados) y la de compactar la base de datos (eliminando realmente el registro del archivo de datos).</P>
+<P>&nbsp;</P>
+<P>Normalmente todo sistema de ficheros indexados tiene varios &iacute;ndices para poder ordenar los datos seg&uacute;n diferentes miembros del registro de datos. A cada uno de los miembros por los que se indexan los datos se les llama claves. Podemos hacer una primera distinci&oacute;n entre claves <U>con o sin duplicados</U>. Se dice que una clave no tiene duplicados si no pueden existir dos registro con el valor de este campo igual (ej: DNI). Una clave con duplicados es aquella en que pueden haber varios registro de datos con el mismo valor en el campo al que se refiere la clave (ej: sueldo). Normalmente hay al menos una <U>clave primaria</U> que es por la cual se realizar&aacute;n preferentemente todas las operaciones de borrado y chequeo de la existencia del registro. Despu&eacute;s pueden haber tantas <U>claves secundarias</U> como se quieran y estan pueden o no ser con duplicados (dependiendo de la naturaleza del dato de que traten).</P>
+<P>&nbsp;</P>
+<P>Las opciones b&aacute;sicas de un mantenimiento de ficheros indexados son: altas, bajas y consultas. A veces se incluye una opci&oacute;n separada de modificaci&oacute;n aunque lo ideal es unir las opciones de altas y bajas en una misma. Fijate que la opci&oacute;n de listados por impresora es simplemente un tipo especial de consulta en donde la salida es por impresora (strprn en C) y no por pantalla. As&iacute; los pasos para cada una de las opciones ser&iacute;a:</P>
+<P>&nbsp;</P>
+<U><P>Altas/modificaci&oacute;n</U>:</P>
+<OL>
+
+<LI>Introducir el campo de la clave primaria.</LI>
+<LI>Buscar si hay alg&uacute;n registro con esta clave (recuerda que es sin duplicados).</LI>
+<LI>Si lo hay notificar de la existenciaa del registro, mostrarlo por pantalla y permitir su modificaci&oacute;n.</LI>
+<LI>Si no lo hay permitir la introducci&oacute;n del resto de los campos.</LI></OL>
+<DIR>
+<DIR>
+
+<P>Escribir el registro actualizando los &iacute;ndices. Si el registro es nuevo a&ntilde;adimos el de datos y actualizamos todos los &iacute;ndices. Si el registro ya exist&iacute;a s&oacute;lo actualizamos las claves secundarias.</P>
+<P>&nbsp;</P></DIR>
+</DIR>
+
+<U><P>Bajas:</P>
+<P>&nbsp;</P>
+<OL>
+
+</U><LI>Introducir el campo de la clave primaria.</LI>
+<LI>Buscar si hay alg&uacute;n registro con esta clave.</LI>
+<LI>Si existe, mostrarlo y pedir la confirmaci&oacute;n que se quiere borrar. Para borrarlo lo &uacute;nico que tenemos que hacer es mirar la clave principal, borrarla y borrar tambi&eacute;n todos los registros de &iacute;ndices que hagan referencia a la misma posici&oacute;n que hacia la clave principal (todos los &iacute;ndices referentes al registro de datos que queremos borrar).</LI>
+<LI>Si no existe avisar que el registro no existe.</LI></OL>
+
+<P>&nbsp;</P>
+<U><P>Consultas (por intervalo):</P>
+<P>&nbsp;</P>
+<OL>
+
+</U><LI>Introducir los valores de inicio y finalizaci&oacute;n para la clave a la que nos queramos referir.</LI>
+<LI>Leer seg&uacute;n el fichero de &iacute;ndices correspondiente hasta que encontremos una clave mayor o igual que el valor de inicio.</LI>
+<LI>Mostar los registros mientras la clave leida sea menor o igual que el valor de finalizaci&oacute;n de la consulta.</LI></OL>
+
+<P>&nbsp;</P>
+<OL>
+
+<LI><A NAME="_Toc365907271"><A NAME="_Toc366027147"><FONT FACE="Arial" SIZE=4>La biblioteca de C.</A></A></A></LI>
+<OL>
+
+<LI><A NAME="_Toc365786914"><A NAME="_Toc365907272"><A NAME="_Toc366027148"></FONT><B><I><FONT FACE="Arial">Introducci&oacute;n a la biblioteca del C.</A></A></A></LI>
+<LI><A NAME="_Toc365786915"><A NAME="_Toc365907273"><A NAME="_Toc366027149">Valores l&iacute;mites (limits.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786916"><A NAME="_Toc365907274"><A NAME="_Toc366027150">Tipos y macros est&aacute;ndares (stddef.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786917"><A NAME="_Toc365907275"><A NAME="_Toc366027151">Funciones de caracteres y de cadenas (ctype.h, string.h y mem.h).</A></A></A></LI>
+</B></I></FONT><P>En estos ficheros se encuentran gran cantidad de funciones y macros &uacute;tiles en el procesamiento de cadenas de caracteres y de variables en general. Nota aunque muchas reciben como par&aacute;metros enteros tratan a estos como si fuesen car&aacute;cteres.</P>
+<P>&nbsp;</P>
+<P>En <B>ctype.h</B> se encuentran varias macros y funciones que nos permiten validar los datos con que trabajamos.</P>
+<I><P>&nbsp;</P>
+</I><P>Las siguientes son macros todas del tipo "int nombre(int c);". Tratan a c como un car&aacute;cter y devuelven verdadero si c es:</P>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=576>
+<TR><TD WIDTH="16%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Macro</B></TD>
+<TD WIDTH="84%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Verdadera si c es…</B></TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isalnum</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es una letra o un n&uacute;mero</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isalpha</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es una letra</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isascii</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es un car&aacute;cter ASCII. Rango de 0 a 127.</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>iscntrl</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es un car&aacute;cter de control o el de borrado (0x0 a 0x1F o el 0x7F)</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isdigit</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es un n&uacute;mero</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isgraph</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Si es un car&aacute;cter visualizable, excluye el espacio</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>islower</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es una letra min&uacute;scula</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isprint</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es un car&aacute;cter visualizable, incluye el espacio</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>ispunct</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es un car&aacute;cter de puntuaci&oacute;n (los dados por iscntrl + los de isspace)</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isspace</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es un espacio, tabulaci&oacute;n (v. u h.), retorno de carro, nueva linea o salto de p&aacute;gina.</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isupper</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es una letra may&uacute;scula</TD>
+</TR>
+<TR><TD WIDTH="16%" VALIGN="TOP">
+<P>isxdigit</TD>
+<TD WIDTH="84%" VALIGN="TOP">
+<P>Es un d&iacute;gito hexagesimal</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<P>Las siguientes macros son del tipo "int nombre(int c);". Convierten el valor almacenado en c a otro tipo:</P>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=576>
+<TR><TD WIDTH="18%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Macro</B></TD>
+<TD WIDTH="82%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Convierte c a…</B></TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<P>toascii</TD>
+<TD WIDTH="82%" VALIGN="TOP">
+<P>A ASCII, deja c como un valor de 7 bits (de 0 a 127)</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<P>tolower</TD>
+<TD WIDTH="82%" VALIGN="TOP">
+<P>A min&uacute;scula, si no es una letra no se modifica</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<P>toupper</TD>
+<TD WIDTH="82%" VALIGN="TOP">
+<P>A may&uacute;scula, si no es una letra no se modifica</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<P>_tolower</TD>
+<TD WIDTH="82%" VALIGN="TOP">
+<P>Igual que tolower pero s&oacute;lo es v&aacute;lida cuando se sabe que c es ya may&uacute;scula</TD>
+</TR>
+<TR><TD WIDTH="18%" VALIGN="TOP">
+<P>_toupper</TD>
+<TD WIDTH="82%" VALIGN="TOP">
+<P>Igual que toupper pero s&oacute;lo es v&aacute;lida cuando se sabe que c es ya min&uacute;scula</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<P>&nbsp;</P>
+<P>En <B>string.h</B> se encuentran varias funciones &uacute;tiles en el uso de cadena de car&aacute;cteres.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+char *strcpy(char *destin, const char *origen);</P>
+</I><P>&nbsp;</P>
+<P>Copia la cadena <I>origen </I>en la cadena <I>desti. </I>Devuelve <I>destin</I>.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+char *strncpy(char *destin, const char *origen, size_t longitud);</P>
+<P>&nbsp;</P>
+</I><P>Igual que strcpy, pero para si se copi&aacute;n <I>longitud</I> caracteres.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *strcat(char *destin, const char *origen);</P>
+</I><P>&nbsp;</P>
+<P>A&ntilde;ade a la cadena <I>destin</I> la cadena <I>origen</I>. <I>destin</I> debe tener el tama&ntilde;o suficiente para alvergar ambas cadenas. Devueve <I>destin</I>.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *strchr(const char *s, int c);</P>
+</I><P>&nbsp;</P>
+<P>Busca la primera aparici&oacute;n del car&aacute;cter c en la cadena s. Devuelve la direcci&oacute;n del car&aacute;cter encontrado. Si no lo encuentra devuelve 0.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *strrchr(const char *s, int c);</P>
+<P>&nbsp;</P>
+</I><P>Igual que strchr pero busca el &uacute;ltimo car&aacute;cter c en s.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+</I>char *strtok(char *s1, const char *s2);</P>
+<P>&nbsp;</P>
+<P>strtok considera la cadena s1 como una secuencia de cero o m&aacute;s s&iacute;mbolos de texto, separados por un par o m&aacute;s caracteres del la cadena de separaci&oacute;n s2.</P>
+<P>&nbsp;</P>
+<P>La primera llamada a strtok devuelve un puntero al primer elemento del primer separador en s1 y escribe un car&aacute;cter nulo en s1 inmediatamente despu&eacute;s del separador devuelto.</P>
+<P>&nbsp;</P>
+<P>Las siguientes llamadas con el primer par&aacute;metro nulo a strtok ir&aacute;n repasando la cadena s1 hasta que no queden m&aacute;s separadores.</P>
+<P>&nbsp;</P>
+<P>La cadena de separaci&oacute;n s2, puede ser diferente entre llamadas.</P>
+<P>&nbsp;</P>
+<P>strtok devuelve un puntero al separador encontrado en s1. Devuelve un puntero nulo si no hay m&aacute;s separadores.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int strcmp(const char *s1, const char *s2);</P>
+</I><P>&nbsp;</P>
+<P>Compara ambas cadenas de caracteres. Devuelve 0 si son iguales, un n&uacute;mero mayor que cero si s1 es mayor que s2 y un n&uacute;mero menor que cero si s1 es menor que s2.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int strcmpi(const char *s1, const char *s2);/*Macro.*/</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int stricmp(const char *s1, const char *s2);/*Funci&oacute;n.*/</P>
+</I><P>&nbsp;</P>
+<P>Igual que strcmp, pero no distingue entre may&uacute;sculas y min&uacute;sculas.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int strncmp(const char *s1, const char *s2, size_t longitud);</P>
+<P>&nbsp;</P>
+</I><P>Igual que strcmp, pero para cuando se han comparado <I>longitud</I> caracteres.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int strlen(const char *s);</P>
+<P>&nbsp;</P>
+</I><P>Devuelve la longitud en bytes de la cadena almacenada en s. No se cuenta el caracter nulo de final de cadena.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *strlwr(char *s);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *strupr(char *s);</P>
+<P>&nbsp;</P>
+</I><P>Pasan la cadena s a min&uacute;sculas y a may&uacute;sculas respectivamente.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *strset(char *s, int ch);</P>
+<P>&nbsp;</P>
+</I><P>Pone todos los caracteres de s al valor especificado en ch.</P>
+<I><P>&nbsp;</P>
+<LI><A NAME="_Toc365786918"><A NAME="_Toc365907276"><A NAME="_Toc366027152"><B><FONT FACE="Arial">Funciones matem&aacute;ticas (math.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786919"><A NAME="_Toc365907277"><A NAME="_Toc366027153">Funciones de pantalla y de gr&aacute;ficos (conio.h y graphics.h).</A></A></A></LI>
+</B></I></FONT><P>Estas funciones se refieren a diferentes aspectos de la salida por pantalla como son el color, la situaci&oacute;n, el brillo, etc. Cada uno de esto dos ficheros de cabecera se refiere a una forma en particular de trabajar con ella ya sea en modo texto (conio.h) o en modo gr&aacute;fico (graphic.h). Ambas librer&iacute;as crean una zona de la pantalla llamada ventana que es donde se va a trabajar, cualquier salida por pantalla fuera de esta zona es ignorada. La posici&oacute;n de esta ventana se puede variar y es, por omisi&oacute;n, toda la pantalla.</P>
+<P>&nbsp;</P>
+<B><U><P>conio.h</P>
+</B></U><P>&nbsp;</P>
+<P>Ya hemos estudiado varias funciones de esta cabecera.</P>
+<P>&nbsp;</P>
+<P>Referentes a entrada por teclado:</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int getch(void);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int getche(void);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int ungetch(int ch);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *cgets(char *cad);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int kbhit(void);</P>
+<P>&nbsp;</P>
+</I><P>Ha salida de caracteres por pantalla:</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int cprintf(const char *formato [,argumento,...]);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int cscanf(const char *formato [,argumento,...]);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int putch(int car);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int cputs(const char *cad);</P>
+<P>&nbsp;</P>
+</I><P>Y al nivel de contraste o brillo con que salen estos caracteres:</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void lowvideo(void);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void highvideo(void);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void normvideo(void);</P>
+<P>&nbsp;</P>
+</I><P>Aqu&iacute; vienen las que quedan:</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void clreol(void);</P>
+</I><P>&nbsp;</P>
+<P>Borra toda la linea desde el cursor hasta el final de la linea en la ventana de texto actual. La posici&oacute;n del cursor no cambia.</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void delline(void);</P>
+</I><P>&nbsp;</P>
+<P>Borra la linea donde est&eacute; el cursor y mueve todas las lineas inferiores una linea hacia arriba.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void insline(void);</P>
+<P>&nbsp;</P>
+</I><P>Inserta una linea vacia en la ventana de texto usando el color de fondo actual. Todas la lineas inferiores son movidas hacia abajo.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void clrscr(void);</P>
+</I><P>&nbsp;</P>
+<P>Borra la ventana de texto actual y pone el cursor en la esquina superior izquierda.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void gotoxy(int x, int y);</P>
+</I><P>&nbsp;</P>
+<P>Pone el cursor en la posici&oacute;n x,y relativa a la ventana de texto actual.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int wherex(void);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int wherey(void);</P>
+</I><P>&nbsp;</P>
+<P>Devuelven las correspondientes coordenadas de la actual posici&oacute;n del cursor.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void _setcursortype(int tip_act);</P>
+</I><P>&nbsp;</P>
+<P>Cambia el cursor seg&uacute;n <I>tip_act:</P>
+</I><P>&#9;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=350>
+<TR><TD WIDTH="37%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Valor</B></TD>
+<TD WIDTH="63%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Acci&oacute;n</B></TD>
+</TR>
+<TR><TD WIDTH="37%" VALIGN="TOP">
+<P>_NOCURSOR</TD>
+<TD WIDTH="63%" VALIGN="TOP">
+<P>Desactiva el cursor</TD>
+</TR>
+<TR><TD WIDTH="37%" VALIGN="TOP">
+<P>_SOLIDCURSOR</TD>
+<TD WIDTH="63%" VALIGN="TOP">
+<P>Cursor de bloque s&oacute;lido</TD>
+</TR>
+<TR><TD WIDTH="37%" VALIGN="TOP">
+<P>_NORMALCURSOR</TD>
+<TD WIDTH="63%" VALIGN="TOP">
+<P>Cursor normal</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+void textbackground(int nuev_color);</P>
+<P>&nbsp;</P>
+</I><P>Cambia el color de fondo de los pr&oacute;ximos caracteres escritos directamente por pantalla. Los valores v&aacute;lidos son:</P>
+<P>&nbsp;</P>
+<P ALIGN="LEFT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=189>
+<TR><TD WIDTH="55%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Constante simb&oacute;lica</B></TD>
+<TD WIDTH="45%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Valor num&eacute;rico</B></TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>BLACK</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">0</TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>BLUE</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">1</TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>GREEN</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">2</TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>CYAN</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">3</TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>RED</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">4</TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>MAGENTA</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">5</TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>BROWN</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">6</TD>
+</TR>
+<TR><TD WIDTH="55%" VALIGN="TOP">
+<P>LIGHTGRAY</TD>
+<TD WIDTH="45%" VALIGN="TOP">
+<P ALIGN="CENTER">7</TD>
+</TR>
+</TABLE>
+</P>
+
+<I><P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void textcolor(int nuev_color);</P>
+<P>&nbsp;</P>
+</I><P>Cambia el color de fondo de los pr&oacute;ximos caracteres escritos directamente por pantalla. Los valores v&aacute;lidos son:</P>
+<P>&nbsp;</P>
+<P ALIGN="LEFT"><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=274>
+<TR><TD WIDTH="76%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Constante simb&oacute;lica</B></TD>
+<TD WIDTH="24%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Color</B></TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>BLACK             </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   0</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>BLUE              </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   1</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>GREEN             </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   2</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>CYAN              </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   3</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>RED               </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   4</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>MAGENTA           </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   5</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>BROWN             </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   6</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>LIGHTGRAY         </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   7</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>DARKGRAY          </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   8</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>LIGHTBLUE         </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>   9</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>LIGHTGREEN        </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>  10</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>LIGHTCYAN         </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>  11</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>LIGHTRED          </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>  12</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>LIGHTMAGENTA      </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>  13</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>YELLOW            </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>  14</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>WHITE             </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P>  15</TD>
+</TR>
+<TR><TD WIDTH="76%" VALIGN="TOP">
+<P>BLINK             </TD>
+<TD WIDTH="24%" VALIGN="TOP">
+<P> 128</TD>
+</TR>
+</TABLE>
+</P>
+
+<P>&nbsp;</P>
+<P>Adem&aacute;s se puede a&ntilde;adir un atributo de brillo destacado a estos colores sumandole al color la constante BLINK. Ej: textcolor(CYAN+BLINK);</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void textmode(int nuev_modo);</P>
+<P>&nbsp;</P>
+</I><P>Cambia el modo de texto de pantalla seg&uacute;n <I>nuev_modo</I> que puede ser:</P>
+<P>&nbsp;</P>
+<P ALIGN="CENTER"><CENTER><TABLE BORDER CELLSPACING=2 BORDERCOLOR="#000000" CELLPADDING=4 WIDTH=576>
+<TR><TD WIDTH="31%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Constante simb&oacute;lica</B></TD>
+<TD WIDTH="18%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Valor num&eacute;rico</B></TD>
+<TD WIDTH="51%" VALIGN="TOP" BGCOLOR="#ffffff">
+<B><P>Modo de texto</B></TD>
+</TR>
+<TR><TD WIDTH="31%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>LASTMODE          </TD>
+<TD WIDTH="18%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>     -1       </TD>
+<TD WIDTH="51%" VALIGN="TOP" BGCOLOR="#ffffff">
+<P>Modo anterior</TD>
+</TR>
+<TR><TD WIDTH="31%" VALIGN="TOP">
+<P>BW40              </TD>
+<TD WIDTH="18%" VALIGN="TOP">
+<P>      0       </TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>Blanco y negro, 40 columnas</TD>
+</TR>
+<TR><TD WIDTH="31%" VALIGN="TOP">
+<P>C40               </TD>
+<TD WIDTH="18%" VALIGN="TOP">
+<P>      1       </TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>Color, 40 columnas</TD>
+</TR>
+<TR><TD WIDTH="31%" VALIGN="TOP">
+<P>BW80              </TD>
+<TD WIDTH="18%" VALIGN="TOP">
+<P>      2       </TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>Blanco y negro, 80 columnas</TD>
+</TR>
+<TR><TD WIDTH="31%" VALIGN="TOP">
+<P>C80               </TD>
+<TD WIDTH="18%" VALIGN="TOP">
+<P>      3       </TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>Color, 80 columnas</TD>
+</TR>
+<TR><TD WIDTH="31%" VALIGN="TOP">
+<P>MONO              </TD>
+<TD WIDTH="18%" VALIGN="TOP">
+<P>      7       </TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>Monocromo, 80 columnas</TD>
+</TR>
+<TR><TD WIDTH="31%" VALIGN="TOP">
+<P>C4350             </TD>
+<TD WIDTH="18%" VALIGN="TOP">
+<P>     64       </TD>
+<TD WIDTH="51%" VALIGN="TOP">
+<P>43 lineas en EGA y 50 en modo VGA</TD>
+</TR>
+</TABLE>
+</CENTER></P>
+
+<P>&nbsp;</P>
+<P>Cuando se llama a esta funci&oacute;n la ventana actual es cambiada a toda la ventana y los atributos del texto pas&aacute;n a los normales correspondientes a una llamada a normvideo. Esta funci&oacute;n s&oacute;lo funciona correctamente en modo texto, para pasar temporalmente de modo gr&aacute;fico a texto est&aacute; <I>restorecrtmode</I>.</P>
+<I><P>&nbsp;</P>
+</I><P>Cuidado: Los par&aacute;metros pasados a las siguientes cuatro funciones utilizan coordinadas de pantalla absolutas y no relativas a la ventana de texto actual. La esquina superior izquierda es el punto (1,1).</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+void window(int izqui, int sup, int dere, int inf);</P>
+</I><P>&nbsp;</P>
+<P>Define la ventana que se va a utilizar para las siguientes salidas por pantalla a trav&eacute;s de las funciones de esta cabecera (cputs, cprintf…). La ventana est&aacute; limitada por las esquina superior izquierda (izqui,sup) y la inferior derecha (dere,inf). El tama&ntilde;o m&iacute;nimo de una ventana es de una columna y una linea. La ventana por omisi&oacute;n es la pantalla entera que tiene las coordinadas:</P>
+<P>&nbsp;</P>
+<P>&#9;En modos de 80 columnas: (1,1)-(80,25).</P>
+<P>&#9;El modos de 40 columnas: (1,1)-(40,25).</P>
+<I><P>&nbsp;</P>
+<P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int gettext(int izqui, int sup, int dere, int inf, void *destino);</P>
+<P>&nbsp;</P>
+</I><P>Guarda la porci&oacute;n de texto indicada por el rect&aacute;ngulo almacenandolo en la posici&oacute;n de memoria indicada por destino. Es muy &uacute;til para salvar zonas de la ventana que luego haya que restaurar (ej. con puttext). Hay que tener en cuenta que cada casilla de la pantalla ocupa dos bytes, el primero es el car&aacute;cter y el segundo es el color del mismo. Por ello la cantidad de memoria necesitada para almacenar el rect&aacute;ngulo es dado por la f&oacute;rmula:</P>
+<P>&nbsp;</P>
+<P>&#9;tama&ntilde;o=(altura) * (ancho) * 2</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int puttext(int izqui, int sup, int dere, int inf, void *origen);</P>
+<P>&nbsp;</P>
+</I><P>Pone en el rect&aacute;ngulo especificado por (izqui,sup)-(dere,inf) tomando la informaci&oacute;n almacenada en <I>origen</I> que est&aacute; almacenada de la forma indicada en <I>gettext</I>.</P>
+<I><P>&nbsp;</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int movetext(int izqui, int sup, int dere, int inf, int izqui_dest, int sup_dest);</P>
+<P>&nbsp;</P>
+</I><P>Copia el rect&aacute;ngulo de texto especificado por (izqui,sup)-(dere,inf) a un rect&aacute;ngulo del mismo tama&ntilde;o con la esquina superior izquierda (izqui_des,sup_dest).</P>
+<I><P>&nbsp;</P>
+<LI><A NAME="_Toc365786920"><A NAME="_Toc365907278"><A NAME="_Toc366027154"><B><FONT FACE="Arial">Saltos no locales (setjmp.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786921"><A NAME="_Toc365907279"><A NAME="_Toc366027155">Env&iacute;o y recepci&oacute;n de se&ntilde;ales (signal.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786922"><A NAME="_Toc365907280"><A NAME="_Toc366027156">Asignaci&oacute;n din&aacute;mica (alloc.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786923"><A NAME="_Toc365907281"><A NAME="_Toc366027157">Funciones de proceso (process.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786924"><A NAME="_Toc365907282"><A NAME="_Toc366027158">Funciones de directorio (dir.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786925"><A NAME="_Toc365907283"><A NAME="_Toc366027159">Funciones del DOS (interrupt y dos.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786926"><A NAME="_Toc365907284"><A NAME="_Toc366027160">Funciones de la ROM BIOS (bios.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786927"><A NAME="_Toc365907285"><A NAME="_Toc366027161">Funciones varias (stdlib.h).</A></A></A></LI>
+</B></FONT><P><FONT FACE="MorseCode">&#168;</FONT>
+double atof(const char *cad);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+int atoi(const char *cad);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+long atol(const char *cad);</P>
+<P>&nbsp;</P>
+</I><P>Las tres devuelven el valor num&eacute;rico de la cadena cad, cada una del tipo de dato especificado. Los espacios o tabulaciones a la izquierda del n&uacute;mero son ignorados. Puede haber una especificaci&oacute;n de signo precediendo al n&uacute;mero adem&aacute;s de las especificaciones propias del tipo de dato (decimales, exponente… etc). Todas paran al encontrar un caracter inv&aacute;lido (ej: una letra).</P>
+<P>&nbsp;</P>
+<I><P><FONT FACE="MorseCode">&#168;</FONT>
+char *itoa(long numero, char *cad, int base);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *ltoa(long numero, char *cad, int base);</P>
+<P><FONT FACE="MorseCode">&#168;</FONT>
+char *ultoa(long numero, char *cad, int base);</P>
+</I><P>&nbsp;</P>
+<P>Almacenan en la cadena cad <I>numero</I> en formato de cadena.<I> base </I>especifica la base que se utilizar&aacute; para la conversi&oacute;n (ej: 10 para decimales, 16 para hexagesimal, 2 para binario… etc). Puede ser de 2 hasta 36 incluido. Si el valor es negativo y la base es 10 en <I>itoa </I>y <I>ltoa</I> el primer car&aacute;cter ser&aacute; el '-'.</P>
+<LI><A NAME="_Toc365786928"><A NAME="_Toc365907286"><A NAME="_Toc366027162"><B><I><FONT FACE="Arial">Funciones de fecha y hora (time.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786929"><A NAME="_Toc365907287"><A NAME="_Toc366027163">Funciones de soporte internacional (locale.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786930"><A NAME="_Toc365907288"><A NAME="_Toc366027164">Funci&oacute;n y estructura de hora actual (sys\timeb.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786931"><A NAME="_Toc365907289"><A NAME="_Toc366027165">Funciones de informaci&oacute;n de ficheros (sys\stat.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786932"><A NAME="_Toc365907290"><A NAME="_Toc366027166">Constantes simb&oacute;licas para compatibilidad con UNIX (values.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786933"><A NAME="_Toc365907291"><A NAME="_Toc366027167">Funciones de coma flotante (float.h).</A></A></A></LI>
+<LI><A NAME="_Toc365786934"><A NAME="_Toc365907292"><A NAME="_Toc366027168">Conexi&oacute;n de C con ensamblador (#pragma inline y asm).</A></A></A></LI></OL>
+
+<LI><A NAME="_Toc365786935"><A NAME="_Toc365907293"><A NAME="_Toc366027169"></B></I></FONT><FONT FACE="Arial" SIZE=4>Bibliograf&iacute;a.</A></A></A></LI></OL>
+
+</FONT><P>&nbsp;</P>
+<P>Y por &uacute;ltimo, incluyo algo de bibliograf&iacute;a para introducirse a fondo en el fabuloso mundo de los punteros y las lineas de c&oacute;digo (los comentarios son opiniones totalmente personales).</P>
+<P>&nbsp;</P>
+<P>&#9;-Si el ingl&eacute;s no es tu problema… ¡felicidades! Puedes acceder a un sinf&iacute;n de t&iacute;tulos de primera calidad referentes al tema. Por ejemplo: no hay nada como la ayuda en linea y los manuales originales del compilador. </P>
+<P>&nbsp;</P>
+<P>&#9;-Antonio Mata. Turbo C/C++ iniciaci&oacute;n y programaci&oacute;n avanzada. Paraninfo. Bueno como libro de consulta tanto para C como para C++.</P>
+<B><P>&nbsp;</P>
+</B><P>&#9;-Kris Jamsa. Microsoft C Secrets, Shortcuts and Solutions. Microsoft Press, 1989. Ayuda a darse cuenta de errores frecuentes.</P>
+<B><P>&nbsp;</P>
+</B><P>&#9;-Kris Jamsa. Programaci&oacute;n en DOS. Mc Graw Hill. Cubre todos los aspectos m&aacute;s frecuentes de la programaci&oacute;n en este S.O. Imprescindible defenderse algo en ensamblador.</P>
+<B><P>&nbsp;</P>
+</B><P>&#9;-Killer C++ (Boland C++ v.4 incluyed). Lo siento pero no recuerdo la editorial ni los autores. Ideal para programaci&oacute;n avanzada pensando en un c&oacute;digo muy eficiente.</P>
+<B><P>&nbsp;</P>
+</B><P>&#9;-Y lo m&aacute;s importante: Experimentar e investigar una gran cantidad de buen c&oacute;digo fuente.</P>
+<P>&nbsp;</P></BODY>
+</HTML>
